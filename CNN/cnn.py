@@ -32,10 +32,20 @@ import argparse
 argparser = argparse.ArgumentParser()
 argparser.add_argument("--arch", dest = "arch", default= 10, type = int,
 				 help="Indicate which archetecture you want.")
+argparser.add_argument("--lr", dest = "learning_rate", default= .0001, type = float,
+				 help="Learning rate to share amongst archetectures")
+argparser.add_argument("--batch", dest = "batch_size", default= 8, type = int,
+				 help="Batch size for distorted images")
+argparser.add_argument("--preprocess", dest = "preprocess", default = "basic", type = str,
+				 help = "What type of preproccessing do you want to use? ")
 argparser.add_argument("-s", "--sample", action="store_true",
                        help="Run only one epoch - for timing and testing purposes")
 argparser.add_argument("-a", "--aws", action="store_true",
                        help="indicate if running aws (1) or not (0)")
+
+
+
+
 args = argparser.parse_args()
 # indicate which archetecture you want {0,1,2,3}
 arch = args.arch
@@ -43,6 +53,11 @@ arch = args.arch
 sample = args.sample
 # Indicate if running on aws or not
 aws = args.aws
+# get the learning rate and batch sizes
+lr = args.learning_rate
+batch_size = args.batch_size
+# type of preprocessing to use
+preprocess = args.preprocess
 
 """
 Several CNN archetecture, of increasing complexity
@@ -83,7 +98,7 @@ def model_3conv(height, width, depth, stride = 3, pool_size = 2):
     model.add(Dropout(0.5))
     model.add(Dense(10))
     model.add(Activation('softmax'))
-    opt = keras.optimizers.rmsprop(lr=0.0001, decay=1e-6)
+    opt = keras.optimizers.rmsprop(lr=lr, decay=1e-6)
     return model, opt
 
 def model_4conv(height, width, depth, stride = 3, pool_size = 2):
@@ -124,7 +139,7 @@ def model_4conv(height, width, depth, stride = 3, pool_size = 2):
     model.add(Dropout(0.5))
     model.add(Dense(10))
     model.add(Activation('softmax'))
-    opt = keras.optimizers.rmsprop(lr=0.0001, decay=1e-6)
+    opt = keras.optimizers.rmsprop(lr=lr, decay=1e-6)
     return model, opt
 
 def model_4conv2(height, width, depth, stride = 5, pool_size = 2):
@@ -168,7 +183,7 @@ def model_4conv2(height, width, depth, stride = 5, pool_size = 2):
     model.add(Dropout(0.5))
     model.add(Dense(10))
     model.add(Activation('softmax'))
-    opt = keras.optimizers.rmsprop(lr=0.0001, decay=1e-6)
+    opt = keras.optimizers.rmsprop(lr=lr, decay=1e-6)
     return model, opt
 
 def model_6conv(height, width, depth, stride = 3, pool_size = 2):
@@ -216,7 +231,7 @@ def model_6conv(height, width, depth, stride = 3, pool_size = 2):
     model.add(Dropout(0.5))
     model.add(Dense(10))
     model.add(Activation('softmax'))
-    opt = keras.optimizers.rmsprop(lr=0.0001, decay=1e-6)
+    opt = keras.optimizers.rmsprop(lr=lr, decay=1e-6)
     return model, opt
 
 """
@@ -236,11 +251,11 @@ This involves making train/test splits, and reshaping the images.
 Relative paths of datasets will depend on if we're running on AWS or not. 
 """
 if aws:
-    X_path = "data/X_train.npy"
-    y_path = "data/y_train.npy"
+    X_path = "data/%s/X_train.npy" % preprocess
+    y_path = "data/%s/y_train.npy" % preprocess
 else:
-    X_path = "../data/preproccessed/basic/X_train.npy"
-    y_path = "../data/preproccessed/basic/y_train.npy"
+    X_path = "../data/preproccessed/%s/X_train.npy" % preprocess
+    y_path = "../data/preproccessed/%s/y_train.npy" % preprocess
 
 # training set
 with open(X_path, "rb") as handle:
@@ -348,7 +363,7 @@ starttime = time.time()
 # number of epochs is only one if the training flag was passed
 # fit the model, and save the output
 numepochs = (1 if sample else 100)
-history = model.fit_generator(img_gen.flow(X_train, encode_onehot(y_train), batch_size=8),
+history = model.fit_generator(img_gen.flow(X_train, encode_onehot(y_train), batch_size=batch_size),
         validation_data=(X_valid, encode_onehot(y_valid)), steps_per_epoch=len(X_train),
         epochs=numepochs, verbose=1, callbacks = [early_stopping, checkpointer])
 

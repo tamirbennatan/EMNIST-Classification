@@ -26,6 +26,19 @@ import copy
 from PIL import Image, ImageOps
 import cv2
 import os
+import argparse
+
+argparser = argparse.ArgumentParser()
+argparser.add_argument("-c", "--circle", action="store_true",
+                       help="Use circle min area to extract smallest picutre")
+
+args = argparser.parse_args()
+circle = args.circle
+
+if circle:
+	preprocess = "circle"
+else:
+	preprocess = "basic"
 
 
 def to_black_or_white(original):
@@ -76,29 +89,39 @@ def paste_onto_black(cropped, desiredsize = 28):
     # return as a matrix
     return np.array(black)
 
-def largest_enclosingRect(img, contours):
-    """
-    From a list countours, return the largest enclosing rectangle. 
-    """
+"""
+From a list countours, return the largest enclosing rectangle. 
+Definition of "largest" is the largest enclosing rectangle if `circle` is False,
+otherwise its the digit with the largest enclosing circle. 
+"""
+def largest_enclosingRect(img, contours, circle = False):
     # keep track of largest contour/area seen so far
     largest_cnt, max_area = None, -1
     
-    for cnt in contours:
-        # top left corner, and width/height of the image
-        x,y,w,h = cv2.boundingRect(cnt)
-        area = w*h
-        # is this the largest image we've seen so far? 
-        if area > max_area:
-            max_area = area
-            largest_cnt = cnt
+    if not circle:
+        for cnt in contours:
+            # top left corner, and width/height of the image
+            x,y,w,h = cv2.boundingRect(cnt)
+            area = w*h
+            # is this the largest image we've seen so far? 
+            if area > max_area:
+                max_area = area
+                largest_cnt = cnt
+    else:
+        for cnt in contours:
+            (x,y),radius = cv2.minEnclosingCircle(cnt)
+            # The area is proportinal to the radius - don't need to actually compute pi*r^2
+            if radius > max_area:
+                max_area = radius
+                largest_cnt = cnt
     
     # Get the enclosing rectangle of the largest contour
     x,y,w,h = cv2.boundingRect(largest_cnt)
     # crop the image, and return
     cropped=img[y:y+h,x:x+w]
-    return(cropped)
+    return(cropped) 
 
-def crop_images(images, desiredsize = 28):
+def crop_images(images, desiredsize = 28, circle = False):
     """
     Given an array of 64x64 black/white images, 
     return an array of the same length, where the contour with the largest _enclosing rectangle_ 
@@ -113,7 +136,7 @@ def crop_images(images, desiredsize = 28):
         # find all the contours in that image
         contours = getcontours(im)
         # get the largest enclosing rectangle
-        enclosing_rect = largest_enclosingRect(im, contours)
+        enclosing_rect = largest_enclosingRect(im, contours, circle = circle)
         # paste it onto a black canvas
         scaled = paste_onto_black(enclosing_rect)
         # put it in our accumulated (modified) dataset. 
@@ -121,7 +144,6 @@ def crop_images(images, desiredsize = 28):
         
     # when appending, images are unrolled. Roll them back up. 
     modified = modified.reshape((images.shape[0],desiredsize,desiredsize))
-    
     return(modified)
 
 def main():
@@ -150,27 +172,30 @@ def main():
     Crop the biggest numbers from each image in the training/test sets:
     """
     print("Cropping largest images from training data...")
-    X_train_cropped = crop_images(X_train)
+    X_train_cropped = crop_images(X_train, circle = circle)
     print("Done.")
     print("Cropping largest images from test data...")
-    X_test_cropped = crop_images(X_test)
+    X_test_cropped = crop_images(X_test, circle = circle)
     print("Done.")
 
     """
     Save the numpy arrays 
     """
-    print("Saving files...")
-    if not os.path.exists("../data/preproccessed/basic"):
-        os.mkdir(os.path.relpath("../data/preproccessed/basic"), exist_ok=True)
+    # print("Saving files...")
+    # if not os.path.exists("../data/preproccessed/basic"):
+    #     os.mkdir(os.path.relpath("../data/preproccessed/basic"), exist_ok=True)
+
+    # if not os.path.exists("../data/preproccessed/circle"):
+    #     os.mkdir(os.path.relpath("../data/preproccessed/circle"), exist_ok=True)
 
     # Save the labels
-    with open ("../data/preproccessed/basic/y_train.npy", "wb") as handle:
+    with open ("../data/preproccessed/%s/y_train.npy" % preprocess, "wb") as handle:
         np.save(handle,y_train)
     # save the training data
-    with open("../data/preproccessed/basic/X_train.npy", "wb") as handle:
+    with open("../data/preproccessed/%s/X_train.npy" % preprocess, "wb") as handle:
         np.save(handle,X_train_cropped)
     # save the test data
-    with open("../data/preproccessed/basic/X_test.npy", "wb") as handle:
+    with open("../data/preproccessed/%s/X_test.npy" % preprocess, "wb") as handle:
         np.save(handle,X_test_cropped)
 
     print("Done. :D")
