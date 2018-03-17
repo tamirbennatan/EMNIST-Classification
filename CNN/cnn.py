@@ -36,14 +36,14 @@ argparser.add_argument("--lr", dest = "learning_rate", default= .0001, type = fl
 				 help="Learning rate to share amongst archetectures")
 argparser.add_argument("--batch", dest = "batch_size", default= 8, type = int,
 				 help="Batch size for distorted images")
+argparser.add_argument("--rot", dest = "rotation_range", default=30 , type = int,
+				 help="Range for random rotations of training images.")
 argparser.add_argument("--preprocess", dest = "preprocess", default = "basic", type = str,
 				 help = "What type of preproccessing do you want to use? ")
 argparser.add_argument("-s", "--sample", action="store_true",
                        help="Run only one epoch - for timing and testing purposes")
 argparser.add_argument("-a", "--aws", action="store_true",
                        help="indicate if running aws (1) or not (0)")
-
-
 
 
 args = argparser.parse_args()
@@ -58,6 +58,8 @@ lr = args.learning_rate
 batch_size = args.batch_size
 # type of preprocessing to use
 preprocess = args.preprocess
+# maximum rotation degrees for random rotations
+rotation_range = args.rotation_range
 
 """
 Several CNN archetecture, of increasing complexity
@@ -302,7 +304,7 @@ img_gen = ImageDataGenerator(
             featurewise_std_normalization=False,  # divide inputs by std of the dataset
             samplewise_std_normalization=False,  # divide each input by its std
             zca_whitening=False,  # apply ZCA whitening
-            rotation_range=30,  # randomly rotate images in the range (degrees, 0 to 180)
+            rotation_range=rotation_range,  # randomly rotate images in the range (degrees, 0 to 180)
             horizontal_flip=False,  # randomly flip images
             vertical_flip=False)
 # fit to our training data
@@ -349,7 +351,7 @@ this will store the archetecture, and validation accuracy
 in the name. 
 """
 archname = ["_3_", "_4_", "_42_", "_6_"][arch]
-filepath="models/weights_%sconv_{epoch:02d}-{val_loss:.2f}.hdf5" % (archname)
+filepath="models/weights_%sconv_%s{epoch:02d}-{val_loss:.2f}.hdf5" % (preprocess,archname)
 
 # Checkpointers for saving the model and early stopping
 checkpointer = ModelCheckpoint(filepath, monitor='val_acc', verbose=1, save_best_only=True)
