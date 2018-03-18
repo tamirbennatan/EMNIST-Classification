@@ -38,12 +38,17 @@ argparser.add_argument("--batch", dest = "batch_size", default= 8, type = int,
 				 help="Batch size for distorted images")
 argparser.add_argument("--rot", dest = "rotation_range", default=30 , type = int,
 				 help="Range for random rotations of training images.")
-argparser.add_argument("--preprocess", dest = "preprocess", default = "basic", type = str,
+argparser.add_argument("--preprocess", dest = "preprocess", default = "rot", type = str,
 				 help = "What type of preproccessing do you want to use? ")
 argparser.add_argument("-s", "--sample", action="store_true",
                        help="Run only one epoch - for timing and testing purposes")
 argparser.add_argument("-a", "--aws", action="store_true",
                        help="indicate if running aws (1) or not (0)")
+argparser.add_argument("--X_path", dest = "X_path", type = str,
+				 help = "Relative path to training data.")
+argparser.add_argument("--y_path", dest = "y_path", type = str,
+				 help = "Relative path to training labels.")
+
 
 
 args = argparser.parse_args()
@@ -60,6 +65,8 @@ batch_size = args.batch_size
 preprocess = args.preprocess
 # maximum rotation degrees for random rotations
 rotation_range = args.rotation_range
+# relative paths to training data/labels
+X_path, y_path = args.X_path, args.y_path
 
 """
 Several CNN archetecture, of increasing complexity
@@ -249,16 +256,7 @@ model_factory = model_factories[arch]
 """
 Load the dataset, and process it. 
 This involves making train/test splits, and reshaping the images.
-
-Relative paths of datasets will depend on if we're running on AWS or not. 
 """
-if aws:
-    X_path = "data/%s/X_train.npy" % preprocess
-    y_path = "data/%s/y_train.npy" % preprocess
-else:
-    X_path = "../data/preproccessed/%s/X_train.npy" % preprocess
-    y_path = "../data/preproccessed/%s/y_train.npy" % preprocess
-
 # training set
 with open(X_path, "rb") as handle:
     X = np.load(handle)

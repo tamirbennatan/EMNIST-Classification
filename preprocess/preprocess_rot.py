@@ -17,7 +17,7 @@ The preprocessing done are:
 This script will write numpy binary files. Later, to read them, do for example:
 ```
 with open([path to `data/preprocessed/basicy_train.npy`], "rb") as handle:
-	y_train = np.load(handle)
+    y_train = np.load(handle)
 ```
 """
 import numpy as np
@@ -30,18 +30,17 @@ import os
 import argparse
 
 argparser = argparse.ArgumentParser()
-argparser.add_argument("-c", "--circle", action="store_true",
-                       help="Use circle min area to extract smallest picutre")
+argparser.add_argument("-a", "--area", action="store_true",
+                       help="Use the rotated rectangle area to define 'largest'\n" +\
+                       "Otherwise use the largest dimension of the rotated rectangle.")
 
 args = argparser.parse_args()
-circle = args.circle
+area = args.area
 
-if circle:
-	preprocess = "circle"
+if area:
+    metric = "maxarea"
 else:
-	preprocess = "basic"
-
-
+    metric = "maxdim"
 
 def to_black_or_white(original):
     """
@@ -59,7 +58,6 @@ def to_black_or_white(original):
     images[notwhite] = 0
     return images.astype("uint8")
 
-
 def getcontours(image):
     """
     Return a list of contours for an image
@@ -71,6 +69,26 @@ def getcontours(image):
     # return only the contours of greater than one pixel in size
     contours = [cnt for cnt in contours if len(cnt) > 1]
     return contours
+
+def crop_enclosingRect(img, cnt, padding = 2):
+    # get the dimension of the image (assumed to be square)
+    size = img.shape[0] - 1 # minus 1 because zero indexed 
+    x,y,w,h = cv2.boundingRect(cnt)
+    """
+    Add `padding` pixels on the lef/right of the enclosing rectangle.
+    Need to make sure, however, that you don't go over the end of the image's range. 
+    """
+    # update the x/y to add padding. 
+    y0_new = max(0, y - padding)
+    y1_new = min(size, y + h + padding)
+    h_new = y1_new - y0_new
+    
+    x0_new = max(0, x - padding)
+    x1_new = min(size,x + w + padding)
+    w_new = x1_new - x0_new
+    
+    cropped=img[y0_new:y0_new+h_new,x0_new:x0_new+w_new]
+    return(cropped)
 
 def paste_onto_black(cropped, desiredsize = 28):
     
@@ -115,45 +133,61 @@ def paste_onto_black(cropped, desiredsize = 28):
         pass
     return im
 
-"""
-From a list countours, return the largest enclosing rectangle. 
-Definition of "largest" is the largest enclosing rectangle if `circle` is False,
-otherwise its the digit with the largest enclosing circle. 
-"""
-def largest_enclosingRect(img, contours, circle = False):
-    # keep track of largest contour/area seen so far
-    largest_cnt, max_area = None, -1
-    
-    if not circle:
-        for cnt in contours:
-            # top left corner, and width/height of the image
-            x,y,w,h = cv2.boundingRect(cnt)
-            area = w*h
-            # is this the largest image we've seen so far? 
-            if area > max_area:
-                max_area = area
-                largest_cnt = cnt
-    else:
-        for cnt in contours:
-            (x,y),radius = cv2.minEnclosingCircle(cnt)
-            # The area is proportinal to the radius - don't need to actually compute pi*r^2
-            if radius > max_area:
-                max_area = radius
-                largest_cnt = cnt
-    
-    # Get the enclosing rectangle of the largest contour
-    x,y,w,h = cv2.boundingRect(largest_cnt)
-    # crop the image, and return
-    cropped=img[y:y+h,x:x+w]
-    return(cropped) 
+def max_area_contour(contours):
+    areas = [cv2.contourArea(cnt)for cnt in contours]
+    return contours[np.argmax(areas)]
 
-def crop_images(images, desiredsize = 28, circle = False):
-    """
-    Given an array of 64x64 black/white images, 
-    return an array of the same length, where the contour with the largest _enclosing rectangle_ 
-    is extracted from each image. 
+
+def rect_area(img,rect):
+    # rotate img
+    angle = rect[2]
+    rows,cols = img.shape[0], img.shape[1]
+    M = cv2.getRotationMatrix2D((cols/2,rows/2),angle,1)
+    # rotate bounding box
+    rect0 = (rect[0], rect[1], 0.0)
+    box = cv2.boxPoints(rect)
     
-    Each number is scaled to size (desiredsize,desiredsize).
+    pts = np.int0(cv2.transform(np.array([box]), M))[0]    
+    pts[pts < 0] = 0
+    
+    xs, ys = tuple(zip(*pts))
+    width, height = max(xs) - min(xs), max(ys) - min(ys)
+    return width*height
+
+def rect_maxdim(img,rect):
+    # rotate img
+    angle = rect[2]
+    rows,cols = img.shape[0], img.shape[1]
+    M = cv2.getRotationMatrix2D((cols/2,rows/2),angle,1)
+    # rotate bounding box
+    rect0 = (rect[0], rect[1], 0.0)
+    box = cv2.boxPoints(rect)
+    
+    pts = np.int0(cv2.transform(np.array([box]), M))[0]    
+    pts[pts < 0] = 0
+    
+    xs, ys = tuple(zip(*pts))
+    maxdim = max(max(xs) - min(xs), max(ys) - min(ys))
+    return maxdim
+
+def largest_cnt_rot(img, contours, metric = "maxdim"):
+    # get the rectangles for each contour
+    rects = [cv2.minAreaRect(cnt) for cnt in contours]
+    assert len(rects) == len(contours)
+    # keep track of the largest contour you've seen, and metric
+    largest_cnt, largest_metric = None, -1
+    # the function to evaluate the "largeness" of a rectangle with
+    metric_func = (rect_maxdim if metric == "maxdim" else rect_area)
+    for i in range(len(contours)):
+        m = metric_func(img, rects[i])
+        if m > largest_metric:
+            largest_metric = m
+            largest_cnt = contours[i]
+    return largest_cnt
+
+def rot_crop(images, desiredsize = 28, metric = "maxdim"):
+    """
+
     """
     # accumulate a modified dataset
     modified = np.ndarray((0, desiredsize, desiredsize), dtype = "uint8")
@@ -161,13 +195,14 @@ def crop_images(images, desiredsize = 28, circle = False):
     for im in images:
         # find all the contours in that image
         contours = getcontours(im)
-        # get the largest enclosing rectangle
-        enclosing_rect = largest_enclosingRect(im, contours, circle = circle)
+        # get the 'largest' contour, per inputed definition of largest
+        largest_cnt = largest_cnt_rot(im, contours, metric = metric)
+        # get the rectangle that encloses the "largest" contour
+        enclosing_rect = crop_enclosingRect(im, largest_cnt)
         # paste it onto a black canvas
         scaled = paste_onto_black(enclosing_rect)
         # put it in our accumulated (modified) dataset. 
         modified = np.append(modified, np.array(scaled))
-        
     # when appending, images are unrolled. Roll them back up. 
     modified = modified.reshape((images.shape[0],desiredsize,desiredsize))
     return(modified)
@@ -198,30 +233,28 @@ def main():
     Crop the biggest numbers from each image in the training/test sets:
     """
     print("Cropping largest images from training data...")
-    X_train_cropped = crop_images(X_train, circle = circle)
+    X_train_cropped = rot_crop(X_train, metric = metric)
     print("Done.")
     print("Cropping largest images from test data...")
-    X_test_cropped = crop_images(X_test, circle = circle)
+    X_test_cropped = rot_crop(X_test, circle = circle)
     print("Done.")
 
     """
     Save the numpy arrays 
     """
     # print("Saving files...")
-    # if not os.path.exists("../data/preproccessed/basic"):
-    #     os.mkdir(os.path.relpath("../data/preproccessed/basic"), exist_ok=True)
-
-    # if not os.path.exists("../data/preproccessed/circle"):
-    #     os.mkdir(os.path.relpath("../data/preproccessed/circle"), exist_ok=True)
+    # if not os.path.exists("../data/preproccessed/rot"):
+       #     os.mkdir(os.path.relpath("../data/preproccessed/rot"), exist_ok=True)
+    #    os.mkdir(os.path.relpath("../data/preproccessed/rot/%s") % metric, exist_ok=True)
 
     # Save the labels
-    with open ("../data/preproccessed/%s/y_train.npy" % preprocess, "wb") as handle:
+    with open ("../data/preproccessed/rot/%s/y_train.npy" % metric, "wb") as handle:
         np.save(handle,y_train)
     # save the training data
-    with open("../data/preproccessed/%s/X_train.npy" % preprocess, "wb") as handle:
+    with open("../data/preproccessed/rot/%s/X_train.npy" % metric, "wb") as handle:
         np.save(handle,X_train_cropped)
     # save the test data
-    with open("../data/preproccessed/%s/X_test.npy" % preprocess, "wb") as handle:
+    with open("../data/preproccessed/rot/%s/X_test.npy" % metric, "wb") as handle:
         np.save(handle,X_test_cropped)
 
     print("Done. :D")
