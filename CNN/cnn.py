@@ -48,6 +48,8 @@ argparser.add_argument("--X_path", dest = "X_path", type = str,
 				 help = "Relative path to training data.")
 argparser.add_argument("--y_path", dest = "y_path", type = str,
 				 help = "Relative path to training labels.")
+argparser.add_argument("--subscript", dest = "subscript", type = str,
+				 help = "Identify the model with this string")
 
 
 
@@ -67,6 +69,8 @@ preprocess = args.preprocess
 rotation_range = args.rotation_range
 # relative paths to training data/labels
 X_path, y_path = args.X_path, args.y_path
+# subscript to put on model name
+subscript = args.subscript
 
 """
 Several CNN archetecture, of increasing complexity
@@ -349,7 +353,7 @@ this will store the archetecture, and validation accuracy
 in the name. 
 """
 archname = ["_3_", "_4_", "_42_", "_6_"][arch]
-filepath="models/weights_%sconv_%s{epoch:02d}-{val_loss:.2f}.hdf5" % (preprocess,archname)
+filepath="models/weights_%sconv_%s%s{epoch:02d}-{val_loss:.2f}.hdf5" % (preprocess,subscript,archname)
 
 # Checkpointers for saving the model and early stopping
 checkpointer = ModelCheckpoint(filepath, monitor='val_acc', verbose=1, save_best_only=True)
@@ -376,7 +380,7 @@ Save the history for further investigation
 if not os.path.isdir("history"):
     os.makedirs("history")
 # name of history file
-historyname = "history_%sconv_%s" % (archname,time.strftime("%h%d_%H%S"))
+historyname = "history/history_%sconv_%s_%s" % (archname,subscript,time.strftime("%h%d_%H%S"))
 # save history
 with open(historyname, "wb") as handle:
     pickle.dump(history.history, handle, protocol = 3)

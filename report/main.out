@@ -1,0 +1,14 @@
+\BOOKMARK [1][-]{section.1}{INTRODUCTION}{}% 1
+\BOOKMARK [1][-]{section.2}{Feature Design}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Removing Noisy Backgrounds}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Extracting the 'Largest' Digit}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Data Augmentation}{section.2}% 5
+\BOOKMARK [1][-]{section.3}{Algorithms}{}% 6
+\BOOKMARK [2][-]{subsection.3.1}{Baseline Features and Models}{section.3}% 7
+\BOOKMARK [2][-]{subsection.3.2}{Tf-Idf Features}{section.3}% 8
+\BOOKMARK [2][-]{subsection.3.3}{Question Classifcation Features}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.4}{Sentence Semantic Similarity Scores}{section.3}% 10
+\BOOKMARK [1][-]{section.4}{RESULTS}{}% 11
+\BOOKMARK [1][-]{section.5}{DISCUSSION AND CONCLUSIONS}{}% 12
+\BOOKMARK [1][-]{section.6}{STATEMENT OF CONTRIBUTION}{}% 13
+\BOOKMARK [1][-]{section*.9}{References}{}% 14

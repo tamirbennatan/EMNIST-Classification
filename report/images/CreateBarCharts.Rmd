@@ -1,0 +1,203 @@
+---
+title: "R Notebook"
+output:
+  html_document: 
+      fig_width: 9
+      fig_height: 3.5
+  html_notebook: default
+---
+
+```{R}
+library(dplyr)
+library(ggplot2)
+library(ggrepel)
+```
+
+```{R}
+full = read.csv("../../data/feature_importance/full.csv", header =  FALSE)
+no.tfidf = read.csv("../../data/feature_importance/no_tfidf.csv", header =  FALSE)
+```
+```{R}
+# set column names
+cnames = c("Feature.Name", "F.Score")
+
+colnames(full) <- cnames
+colnames(no.tfidf) <- cnames
+```
+
+```{R}
+# Add Feature numbers
+full = full %>% mutate(
+      Feature = case_when(
+            Feature.Name == "euclidean_distance_max_tfidf_word" ~ "Feature_1", 
+            Feature.Name == "cosine_distance_max_tfidf_word" ~ "Feature_2",
+            Feature.Name == "word_intersection_tfidf_weight" ~ "Feature_3",
+            Feature.Name == "word_symmetric_difference_tfidf_weight" ~ "Feature_4",
+            Feature.Name == "lstm_vote_q1" ~ "Feature_5",
+            Feature.Name == "lstm_vote_q2" ~ "Feature_6",
+            Feature.Name == "lstm_vote_agree" ~ "Feature_7",
+            Feature.Name == "embedding_similarity_score" ~ "Feature_8",
+            Feature.Name == "lch_similarity" ~ "Feature_9"
+            
+            )
+      ) %>%
+      mutate(
+            Feature.Set = 
+            case_when(
+            Feature.Name == "euclidean_distance_max_tfidf_word" ~ "Tf-Idf Features", 
+            Feature.Name == "cosine_distance_max_tfidf_word" ~ "Tf-Idf Features",
+            Feature.Name == "word_intersection_tfidf_weight" ~ "Tf-Idf Features",
+            Feature.Name == "word_symmetric_difference_tfidf_weight" ~ "Tf-Idf Features",
+            Feature.Name == "lstm_vote_q1" ~ "Question Classification",
+            Feature.Name == "lstm_vote_q2" ~ "Question Classification",
+            Feature.Name == "lstm_vote_agree" ~ "Question Classification",
+            Feature.Name == "embedding_similarity_score" ~ "Semantic Similarity Scores",
+            Feature.Name == "lch_similarity" ~ "Semantic Similarity Scores",
+            TRUE ~ "Baseline"
+            )
+      ) %>%
+      mutate(rank = row_number())
+
+```
+
+```{R}
+# Add Feature numbers
+no.tfidf = no.tfidf %>% mutate(
+      Feature = case_when(
+            Feature.Name == "euclidean_distance_max_tfidf_word" ~ "Feature_1", 
+            Feature.Name == "cosine_distance_max_tfidf_word" ~ "Feature_2",
+            Feature.Name == "word_intersection_tfidf_weight" ~ "Feature_3",
+            Feature.Name == "word_symmetric_difference_tfidf_weight" ~ "Feature_4",
+            Feature.Name == "lstm_vote_q1" ~ "Feature_5",
+            Feature.Name == "lstm_vote_q2" ~ "Feature_6",
+            Feature.Name == "lstm_vote_agree" ~ "Feature_7",
+            Feature.Name == "embedding_similarity_score" ~ "Feature_8",
+            Feature.Name == "lch_similarity" ~ "Feature_9"
+            
+            )
+      ) %>%
+      mutate(
+            Feature.Set = 
+            case_when(
+            Feature.Name == "euclidean_distance_max_tfidf_word" ~ "Tf-Idf Features", 
+            Feature.Name == "cosine_distance_max_tfidf_word" ~ "Tf-Idf Features",
+            Feature.Name == "word_intersection_tfidf_weight" ~ "Tf-Idf Features",
+            Feature.Name == "word_symmetric_difference_tfidf_weight" ~ "Tf-Idf Features",
+            Feature.Name == "lstm_vote_q1" ~ "Question Classification",
+            Feature.Name == "lstm_vote_q2" ~ "Question Classification",
+            Feature.Name == "lstm_vote_agree" ~ "Question Classification",
+            Feature.Name == "embedding_similarity_score" ~ "Semantic Similarity Scores",
+            Feature.Name == "lch_similarity" ~ "Semantic Similarity Scores",
+            TRUE ~ "Baseline"
+            )
+      ) %>%
+      mutate(rank = row_number())
+
+```
+
+```{R}
+full %>%
+      ggplot(aes(rank, y = F.Score, fill = Feature.Set)) + 
+      geom_col() + 
+      geom_label_repel(aes(label = Feature), alpha = 0.8, nudge_y = 1500 ) + 
+      xlab(NULL) + 
+      theme(axis.title.x=element_blank(),
+           legend.position=c(.73,.83),
+        axis.text.x=element_blank(),
+        legend.text=element_text(size=16),
+        axis.ticks.x=element_blank()) + 
+            scale_fill_manual(values=c("#92939b", "#95b4ed", "#fc8946", "#9a69e5")) 
+      
+```
+
+
+```{R}
+
+no.tfidf %>%
+      ggplot(aes(rank, y = F.Score, fill = Feature.Set)) + 
+      geom_col() + 
+      geom_label_repel(aes(label = Feature), alpha = 0.8, nudge_y = 1500 ) + 
+      xlab(NULL) + 
+      theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(), 
+        legend.position=c(.73,.83),
+        legend.text=element_text(size=16)) + 
+            scale_fill_manual(values=c("#92939b", "#95b4ed", "#fc8946"))
+```
+
+
+
+```{R}
+data <-  read.csv('../../data/features.csv')
+```
+```{R}
+df = data %>%
+      select(euclidean_distance_max_tfidf_word,
+             cosine_distance_max_tfidf_word,
+             word_intersection_tfidf_weight,
+             word_intersection_tfidf_weight,
+             word_symmetric_difference_tfidf_weight,
+             lstm_vote_q1,
+             lstm_vote_q2,
+             lstm_vote_agree,
+             embedding_similarity_score,
+             lch_similarity)
+
+
+View(df)
+```
+```{R}
+library(corrplot)
+
+cor(select(df, -lstm_vote_agree))
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

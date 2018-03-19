@@ -33,6 +33,8 @@ argparser = argparse.ArgumentParser()
 argparser.add_argument("-a", "--area", action="store_true",
                        help="Use the rotated rectangle area to define 'largest'\n" +\
                        "Otherwise use the largest dimension of the rotated rectangle.")
+argparser.add_argument("--subscript", dest = "subscript", type = str, default = "",
+				 help = "Subscript onto file names")
 
 args = argparser.parse_args()
 area = args.area
@@ -41,6 +43,9 @@ if area:
     metric = "maxarea"
 else:
     metric = "maxdim"
+
+subscript = args.subscript
+
 
 def to_black_or_white(original):
     """
@@ -206,18 +211,30 @@ def rot_crop(images, desiredsize = 28, metric = "maxdim"):
     modified = np.array(modified)
     return(modified)
 
+def normalize(arr):
+    arr = copy.copy(arr)
+    blackpix = arr == 0
+    whitepix = np.logical_not(blackpix)
+    arr[blackpix] = 1
+    arr[whitepix] = 0
+    return arr
+
 def main():
     """
     Load the training and test sets. 
     Also load the labels, so that you can save them more nicely. 
     """
     print("Loading Data...")
-    X_test = np.loadtxt("../data/raw/test_x.csv", delimiter=",") # load from text 
-    X_train = np.loadtxt("../data/raw/train_x.csv", delimiter=",")
-    y_train = np.loadtxt("../data/raw/train_y.csv", delimiter=",") 
-    X_train = X_train.reshape(-1, 64, 64) 
-    X_test = X_test.reshape(-1, 64, 64) # reshape 
-    y_train = y_train.reshape(-1, 1) 
+    # X_test = np.loadtxt("../data/raw/test_x.csv", delimiter=",") # load from text 
+    # X_train = np.loadtxt("../data/raw/train_x.csv", delimiter=",")
+    # y_train = np.loadtxt("../data/raw/train_y.csv", delimiter=",") 
+    # X_train = X_train.reshape(-1, 64, 64) 
+    # X_test = X_test.reshape(-1, 64, 64) # reshape 
+    # y_train = y_train.reshape(-1, 1) 
+
+    X_test = np.load("../data/raw/X_test.npy")
+    X_train = np.load("../data/raw/X_train.npy")
+    y_train = np.load("../data/raw/y_train.npy")
     print("Done.")
 
     """
@@ -239,6 +256,14 @@ def main():
     print("Done.")
 
     """
+    Normalize values to range {0,1}
+    """
+    print ("Normalizing....")
+    X_train_cropped = normalize(X_train_cropped)
+    X_test_cropped = normalize(X_test_cropped)
+    print("Done.")
+
+    """
     Save the numpy arrays 
     """
     # print("Saving files...")
@@ -247,13 +272,13 @@ def main():
     #    os.mkdir(os.path.relpath("../data/preproccessed/rot/%s") % metric, exist_ok=True)
 
     # Save the labels
-    with open ("../data/preproccessed/rot/%s/y_train.npy" % metric, "wb") as handle:
+    with open ("../data/preproccessed/rot/%s/y_train%s.npy" % (metric, subscript), "wb") as handle:
         np.save(handle,y_train)
     # save the training data
-    with open("../data/preproccessed/rot/%s/X_train.npy" % metric, "wb") as handle:
+    with open("../data/preproccessed/rot/%s/X_train%s.npy" % (metric, subscript), "wb") as handle:
        np.save(handle,X_train_cropped)
     # save the test data
-    with open("../data/preproccessed/rot/%s/X_test.npy" % metric, "wb") as handle:
+    with open("../data/preproccessed/rot/%s/X_test%s.npy" % (metric, subscript), "wb") as handle:
         np.save(handle,X_test_cropped)
 
     print("Done. :D")
