@@ -16,7 +16,7 @@ The preprocessing done are:
 
 This script will write numpy binary files. Later, to read them, do for example:
 ```
-with open([path to `data/preprocessed/basicy_train.npy`], "rb") as handle:
+with open([path to `data/preprocessed/basic_train.npy`], "rb") as handle:
     y_train = np.load(handle)
 ```
 """
@@ -190,8 +190,7 @@ def rot_crop(images, desiredsize = 28, metric = "maxdim"):
 
     """
     # accumulate a modified dataset
-    modified = np.ndarray((0, desiredsize, desiredsize), dtype = "uint8")
-    
+    modified = list()
     for im in images:
         # find all the contours in that image
         contours = getcontours(im)
@@ -202,9 +201,9 @@ def rot_crop(images, desiredsize = 28, metric = "maxdim"):
         # paste it onto a black canvas
         scaled = paste_onto_black(enclosing_rect)
         # put it in our accumulated (modified) dataset. 
-        modified = np.append(modified, np.array(scaled))
-    # when appending, images are unrolled. Roll them back up. 
-    modified = modified.reshape((images.shape[0],desiredsize,desiredsize))
+        modified.append(scaled)
+    # convert to a numpy array
+    modified = np.array(modified)
     return(modified)
 
 def main():
@@ -236,7 +235,7 @@ def main():
     X_train_cropped = rot_crop(X_train, metric = metric)
     print("Done.")
     print("Cropping largest images from test data...")
-    X_test_cropped = rot_crop(X_test, circle = circle)
+    X_test_cropped = rot_crop(X_test, metric = metric)
     print("Done.")
 
     """
@@ -252,7 +251,7 @@ def main():
         np.save(handle,y_train)
     # save the training data
     with open("../data/preproccessed/rot/%s/X_train.npy" % metric, "wb") as handle:
-        np.save(handle,X_train_cropped)
+       np.save(handle,X_train_cropped)
     # save the test data
     with open("../data/preproccessed/rot/%s/X_test.npy" % metric, "wb") as handle:
         np.save(handle,X_test_cropped)
