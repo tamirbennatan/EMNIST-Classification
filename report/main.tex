@@ -45,7 +45,7 @@
 
 
 \title{\LARGE \bf
-TITLE OF PAPER.
+Image Classification With EMNIST - An Extended Version of MNIST
 }
 
 \author{ \parbox{2 in}{\centering Tamir Bennatan
@@ -54,11 +54,11 @@ TITLE OF PAPER.
          \hspace*{ 0.3 in}
          \parbox{2 in}{\centering Kyle Levy
          {\tt\small kyle.levy@mail.mcgill.ca\\}
-         {\tt\small INSERT KYLES ID}}
+         {\tt\small 260612028}}
          \hspace*{0.3 in}
-         \parbox{2 in}{\centering Phillip R...
-         {\tt\small INSERT PHILS EMAIL\\}
-         {\tt\small ISERT PHILS ID}}
+         \parbox{2 in}{\centering Phillip Ryjanovsky
+         {\tt\small Philip.ryjanovsky@mail.mcgill.ca\\}
+         {\tt\small 260604024}}
 }
 
 
@@ -110,7 +110,7 @@ In this project, we address the digit classification task on a more difficult da
 
 The inherent randomness in the EMNIST examples makes image classification on EMNIST more difficult than on MNIST [Figure 2]. 
 
-In this report, we discuss the pre-processing measures we took to adress the noisy features of the EMNIST examples. We then summarize our process in fitting and tuning Logistic Regression, Feedforward Neural Network, and Convolutional Neural Network (CNN) classifiers. CNNs proved most effective; we achieved \textbf{90\% IS THIS TRUE?} validation accuracy using a CNN with 6 convolutional layers. We then summarize our results and our shortcomings, and ways in which we can improve our accuracy in the future. 
+In this report, we discuss the pre-processing measures we took to adress the noisy features of the EMNIST examples. We then summarize our process in fitting and tuning Logistic Regression, Feedforward Neural Network, and Convolutional Neural Network (CNN) classifiers. CNNs proved most effective; we achieved 92.6\% validation accuracy using the aggregated predictions of four CNN models. We then summarize our results and our shortcomings, and ways in which we can improve our accuracy in the future. 
 
 \section{Feature Design}
 
@@ -160,61 +160,40 @@ We treated the choice of which heuristic to use to measure the size of a digit a
 
 To help make our model more robust to rotated digits, we augmented our training data with randomly rotated copies of each training example. Our rational is that if we train on randomly rotated images, our classifier will scale unseen randomly rotated images more effeciely. We tuned the number of times we rotated each image (called the \emph{"batch size"}), and the range of degrees with which we rotated each image as hyperparameters. 
 
-\begin{figure}[H]
-      \centering
-      \includegraphics[scale = .7]{rotated_nines}
-		\centering
-      %\includegraphics[scale=1.0]{figurefile}
-      \caption{21 images generated from one digit extracted from an EMNIST example via random rotations. These images can be used to augment the training data.}
-      \label{figurelabel}
-   \end{figure}
 
-
-\section{Algorithms}
+\section{ALGORITHMS}
 
 We trained classifiers of three types: Regularized Logistic Regression, Feedforward Neural Network, and Convolutional Neural Networks (CNN). We trained each of these classifiers on the datasets processed using each of size heuristics described above, though we only experimented with data augmentation when training the CNN.
 
-Regularized Logisitc regression served as our benchmark, as it is a simple and easy to implement algorithm. The two hyperparamters we tuned (besides the chosen size heuristic) were the inverse-regularization coefficient, $C$\footnote{In the notation seen in class, $C \equiv \sfrac{1}{\lambda}$.}, and the regularization loss function (either \emph{l1} or \emph{l2} loss). 
+Regularized Logisitc regression served as our benchmark, as it is a simple and easy to implement algorithm. 
 
 \textbf{THIS IS FILLER. HERE WE TALK A BIT ABOUT IMPLEMENTATION AND WHAT WE TUNEDTHIS IS FILLER. HERE WE TALK A BIT ABOUT IMPLEMENTATION AND WHAT WE TUNEDTHIS IS FILLER. HERE WE TALK A BIT ABOUT IMPLEMENTATION AND WHAT WE TUNEDTHIS IS FILLER. HERE WE TALK A BIT ABOUT IMPLEMENTATION AND WHAT WE TUNEDTHIS IS FILLER. HERE WE TALK A BIT ABOUT IMPLEMENTATION AND WHAT WE TUNEDTHIS IS FILLER. HERE WE TALK A BIT ABOUT IMPLEMENTATION AND WHAT WE TUNEDTHIS IS FILLER. HERE WE TALK A BIT ABOUT IMPLEMENTATION AND WHAT WE TUNED.}
 
+Finally, we trained CNNs of four different archetecutres - each inspired by the LeNet archetecture by Lecun et. al (Legun et. al; 1995). These archetectures alternate between convolutional and max-pooling layers, and output predictions through two fully connected layers. One archetecture had three convolutional layers, two had four convolutional layers, and one had six convolutional layers. 
+\begin{figure}[H]
+      \centering
+      \includegraphics[scale = .42]{conv4_arch}
+		\centering
+      %\includegraphics[scale=1.0]{figurefile}
+      \caption{One of the four CNN archetectures we experimented with. The other three differ slightly in the kernel size, pooling size, and number of convolutional layers. Image modified from [4]. }
+      \label{figurelabel}
+\end{figure}
 
-\subsection{Baseline Features and Models} 
+\section{METHODOLOGY}
 
-We built a baseline feature set and model so that we could measure the relative increase in performance that results from incorporating each new feature set.
+We started by splitting the labeled data into training and validation splits of sizes 40,000 and 10,000 examples, respectively. We kept these splits consistent in all experiments, so that we could guage the relative effectiveness of the models. For each model, we used this validation set to select a digit size heuristic, based on which heuristic(s) yield the highest validation accuracy when used to select the largest digit. We also used this validation set to tune model-specific parameters.
 
-Our baseline feature set consists of standard syntactic and string edit distance features\footnotemark . We also noticed that many Kaggle competitors used neural word embeddings to construct “sentence vectors” for each question by averaging the embedding vectors of each word in a question. They then used various similarity functions\footnotemark \ to compute the similarity between the sentence vectors of paired questions as features. We recreated these features using the fastText pre-trained word embeddings (Joulin et al.; 2016). Our initial features are summarized in Table 2.
+\subsection{Logistic Regression: Model Tuning} 
 
-\begin{table}[b]
-\centering
-\caption{Baseline features}
-\label{my-label}
-\begin{tabular}{|p{15mm}|p{60mm}|}
-\hline
-Feature \\ category                          & Feature \\ \hlineB{3}
+The two hyperparamters we tuned the for logistic regression were the inverse-regularization coefficient, $C$\footnote{In the notation seen in class, $C \equiv \sfrac{1}{\lambda}$.}, and the regularization loss function (either \emph{l1} or \emph{l2}). Using the processed datasets generated from using each of the four size heuristics, we ran a grid-search over 24 hyperparameter combinations, and selected the combination that yielded the best validation accuracy.   
 
-Syntactic                        & Number of words in each question \\\cline{2-2}
-features							   & Number of words the two questions have in common \\\hline
+\subsection{Feedforward Neural Network: Model Tuning} 
 
-Character 				   & Number of characters in each question \\\cline{2-2} 
- 	features						   & Difference in number of characters in each question \\
-\hline
+\textbf{THIS IS FILLER. HERE WE TALK A BIT ABOUT IMPLEMENTATION AND WHAT WE TUNEDTHIS IS FILLER. HERE WE TALK A BIT ABOUT IMPLEMENTATION AND WHAT WE TUNEDTHIS IS FILLER. HERE WE TALK A BIT ABOUT IMPLEMENTATION AND WHAT WE TUNEDTHIS IS FILLER. HERE WE TALK A BIT ABOUT IMPLEMENTATION AND WHAT WE TUNEDTHIS IS FILLER. HERE WE TALK A BIT ABOUT IMPLEMENTATION AND WHAT WE TUNEDTHIS IS FILLER.}
 
-Edit  		   & 	Partial string matches (with/without stopwords)			\\\cline{2-2}
-distance 	& Token-wise string matches \\\cline{2-2}
-variations 	 				& Type-wise string matches \\\cline{2-2}
- 								& Type-sorted string matches \\
+\subsection{CNN: Hyperparameter Tuning} 
 
-\hline
-
-Sentence embedding similarity	   & Vector similarities of sentence embeddings using Euclidean, Cosine, Cityblock, Bray-Curtis and Jaccard distances\\ 
-				   	
-\hline
-
-\end{tabular}
-\end{table}
-
-
+\subsection{CNN: Learning Optimization} 
 
 
 
@@ -393,7 +372,7 @@ Feature sets ommited                                                            
 XGB Test Set Accuracy                                                           & \textbf{.7925} & .7624 (.0301)        & .7861 (.0064)        & .7825 (.01)          & .7585 (.034)  & .7504 (.0421)                 & .7794 (.0131)                & .7456 (.0469) \\ \hline
 \begin{tabular}[c]{@{}l@{}}Logistic Regression\\ Test Set Accuracy\end{tabular} & \textbf{.6962} & .6838 (.0124)        & .6951 (.0011)        & .6837 (.0125)        & .6836 (.0126) & .6743 (.0219)                 & .6827 (.0125)                & .6728 (.0234) \\ \hline
 \multicolumn{9}{|c|}{\cellcolor[HTML]{ECF4FF}BASELINE MODELS}                                                                                                                                                                                                        \\ \hline
-\multicolumn{1}{|c|}{\cellcolor[HTML]{EFEFEF}Manhattan LSTM}                    & .7588          & \multicolumn{3}{c|}{\cellcolor[HTML]{EFEFEF}Human (400 Responses)} & .8175         & \multicolumn{2}{c|}{\cellcolor[HTML]{EFEFEF}Random Guessing} & .5015         \\ \hline
+\multicolumn{1}{|c|}{\cellcolor[HTML]{EFEFEF}Manhattan LSTM}                    & .7588          & \multicolumn{3}{c|}{\cellcolor[HTML]{EFEFEF}Human (400 Responses)} & .8175         & \multicolumn{2}{c|}{\cellcolor[HTML]{EFEFEF}Random Guessing} \& .5015         \\ \hline
 \end{tabular}
 \begin{tablenotes}
 \item Here, \{1\} are the Tf-Idf features from 4.B, \{2\} are the question classification features from 4.C, and \{3\} are the semantic similarity scores from 4.D.
@@ -461,20 +440,19 @@ We also think that an interesting extension to this work would be to extract fea
 
 Tamir engineered the features and classifiers described, worked on the paper, and conducted model experiments. Jack contributed to the classifiers and paper, and experimented with advanced techniques for feature extraction, such as named entity recognition and headword extraction. 
 
+\section{APPENDIX}
+
+
 \pagebreak
 \begin{thebibliography}{99}
 \bibitem{c1} Cohen, G., Afshar, S., Tapson, J., \& van Schaik, A. (2017). EMNIST: an extension of MNIST to handwritten letters. Retrieved from http://arxiv.org/abs/1702.05373 (link is external)
 \bibitem{c2} Y. LeCun, L. Bottou, Y. Bengio and P. Haffner: Gradient-Based Learning Applied to Document Recognition, Intelligent Signal Processing, 306-351, IEEE Press, 2001,
+\bibitem{c3} Y. LeCun, L. D. Jackel, L. Bottou, A. Brunot, C. Cortes, J. S. Denker, H. Drucker, I. Guyon, U. A. Muller, E. Sackinger, P. Simard and V. Vapnik: Comparison of learning algorithms for handwritten digit recognition, in Fogelman, F. and Gallinari, P. (Eds), International Conference on Artificial Neural Networks, 53-60, EC2 \& Cie, Paris, 1995.
 
 
 \section*{Blog Posts}
 
-\bibitem{c17} Brownlee, J. (2017, October 4). How to Use Word Embedding Layers for Deep Learning with Keras [Blog post]. Retrieved from https://machinelearningmastery.com/use-word-embedding-layers-deep-learning-keras/
-\bibitem{c18} Brownlee, J. (2017, October 27). How to Use the Keras Functional API for Deep Learning [Blog post]. Retrieved from https://machinelearningmastery.com/keras-functional-api-deep-learning/
-\bibitem{c19} Jain, A. (2016, March 1). Complete Guide to Parameter Tuning in XGBoost (with codes in Python) [Blog post]. Retrieved from https://www.analyticsvidhya.com/blog/2016/03/complete-guide-parameter-tuning-xgboost-with-codes-python/
-\bibitem{c20} Cohen, E. (2017, June 9). How to predict Quora Question Pairs using Siamese Manhattan LSTM [Blog post]. Retrieved from https://medium.com/mlreview/implementing-malstm-on-kaggles-quora-question-pairs-competition-8b31b0b16a07
-\bibitem{c21} Dandekar, N. (2017, February 13). Semantic Question Matching with Deep Learning [Blog post]. Retrieved from https://engineering.quora.com/Semantic-Question-Matching-with-Deep-Learning
-\bibitem{c22} Thakur, A. (2017, February 27). Is That a Duplicate Quora Question? [Blog post]. Retrieved from https://www.linkedin.com/pulse/duplicate-quora-question-abhishek-thakur/
+\bibitem{c5} Theart, R. (2017, November 29). Getting started with PyTorch for Deep Learning (Part 3: Neural Network basics). Retrieved from https://codetolight.wordpress.com/2017/11/29/getting-started-with-pytorch-for-deep-learning-part-3-neural-network-basics/
 
 \end{thebibliography}
 

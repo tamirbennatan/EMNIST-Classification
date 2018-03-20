@@ -3,12 +3,15 @@
 \BOOKMARK [2][-]{subsection.2.1}{Removing Noisy Backgrounds}{section.2}% 3
 \BOOKMARK [2][-]{subsection.2.2}{Extracting the 'Largest' Digit}{section.2}% 4
 \BOOKMARK [2][-]{subsection.2.3}{Data Augmentation}{section.2}% 5
-\BOOKMARK [1][-]{section.3}{Algorithms}{}% 6
-\BOOKMARK [2][-]{subsection.3.1}{Baseline Features and Models}{section.3}% 7
-\BOOKMARK [2][-]{subsection.3.2}{Tf-Idf Features}{section.3}% 8
-\BOOKMARK [2][-]{subsection.3.3}{Question Classifcation Features}{section.3}% 9
-\BOOKMARK [2][-]{subsection.3.4}{Sentence Semantic Similarity Scores}{section.3}% 10
-\BOOKMARK [1][-]{section.4}{RESULTS}{}% 11
-\BOOKMARK [1][-]{section.5}{DISCUSSION AND CONCLUSIONS}{}% 12
-\BOOKMARK [1][-]{section.6}{STATEMENT OF CONTRIBUTION}{}% 13
-\BOOKMARK [1][-]{section*.9}{References}{}% 14
+\BOOKMARK [1][-]{section.3}{ALGORITHMS}{}% 6
+\BOOKMARK [1][-]{section.4}{METHODOLOGY}{}% 7
+\BOOKMARK [2][-]{subsection.4.1}{Logistic Regression: Model Tuning}{section.4}% 8
+\BOOKMARK [2][-]{subsection.4.2}{Feedforward Neural Network: Model Tuning}{section.4}% 9
+\BOOKMARK [2][-]{subsection.4.3}{Tf-Idf Features}{section.4}% 10
+\BOOKMARK [2][-]{subsection.4.4}{Question Classifcation Features}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.5}{Sentence Semantic Similarity Scores}{section.4}% 12
+\BOOKMARK [1][-]{section.5}{RESULTS}{}% 13
+\BOOKMARK [1][-]{section.6}{DISCUSSION AND CONCLUSIONS}{}% 14
+\BOOKMARK [1][-]{section.7}{STATEMENT OF CONTRIBUTION}{}% 15
+\BOOKMARK [1][-]{section.8}{APPENDIX}{}% 16
+\BOOKMARK [1][-]{section*.9}{References}{}% 17
