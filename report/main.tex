@@ -72,11 +72,6 @@ Image Classification With EMNIST - An Extended Version of MNIST
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{abstract}
-
-This is filler, so that we don't get formatting problems later when we write the abstract. This is filler, so that we don't get formatting problems later when we write the abstract. This is filler, so that we don't get formatting problems later when we write the abstract. This is filler, so that we don't get formatting problems later when we write the abstract. This is filler, so that we don't get formatting problems later when we write the abstract. This is filler, so that we don't get formatting problems later when we write the abstract. This is filler, so that we don't get formatting problems later when we write the abstract. This is filler, so that we don't get formatting problems later when we write the abstract. 
-
-\end{abstract}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -178,6 +173,7 @@ Finally, we trained CNNs of four different archetecutres - each inspired by the 
       \caption{One of the four CNN archetectures we experimented with. The other three differ slightly in the kernel size, pooling size, and number of convolutional layers. Image modified from [4]. }
       \label{figurelabel}
 \end{figure}
+A summary of the four architechtures we experimented with is presented in the apenndix. We refer to them as \emph{Architecture 1-4}. 
 
 \section{METHODOLOGY}
 
@@ -185,7 +181,7 @@ We started by splitting the labeled data into training and validation splits of 
 
 \subsection{Logistic Regression: Model Tuning} 
 
-The two hyperparamters we tuned the for logistic regression were the inverse-regularization coefficient, $C$\footnote{In the notation seen in class, $C \equiv \sfrac{1}{\lambda}$.}, and the regularization loss function (either \emph{l1} or \emph{l2}). Using the processed datasets generated from using each of the four size heuristics, we ran a grid-search over 24 hyperparameter combinations, and selected the combination that yielded the best validation accuracy.   
+The two hyperparamters we tuned the for logistic regression were the inverse-regularization coefficient, $C$\footnote{In the notation seen in class, $C \propto \sfrac{1}{\lambda}$.}, and the regularization loss function (either \emph{l1} or \emph{l2}). Using the processed datasets generated from using each of the four size heuristics, we ran a grid-search over 24 hyperparameter combinations, and selected the combination that yielded the best validation accuracy.   
 
 \subsection{Feedforward Neural Network: Model Tuning} 
 
@@ -193,166 +189,86 @@ The two hyperparamters we tuned the for logistic regression were the inverse-reg
 
 \subsection{CNN: Hyperparameter Tuning} 
 
-\subsection{CNN: Learning Optimization} 
+We considered many hyperparameters when tuning our CNN models. The most important hyperparameters are summarized in Table 1:
+\begin{table}[]
+\caption{Hyperparameter Ranges Explored for CNN models}
+\centering
+\label{my-label}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Hyperparameter}                                                                     & \textbf{Range Explored}                                                                                                            \\ \hline
+Model Architecture                                                                          & \begin{tabular}[c]{@{}c@{}}\{Architecture 1, Architecture 2, \\ Architecture 3, Architecture 4\}\end{tabular}                      \\ \hline
+\begin{tabular}[c]{@{}c@{}}Data Augmentation - \\ (Batch size, Rotation Range)\end{tabular} & \begin{tabular}[c]{@{}c@{}}\{(1, {[}0, 0{]}), \\ (8, {[}-10, 10{]}), \\ (16, {[}-20, 20{]}), \\ (16, {[}-30, 30{]})\}\end{tabular} \\ \hline
+\multicolumn{1}{|l|}{Learning Rate}                                                         & \multicolumn{1}{l|}{\{.000001, .00005, .0001\}}                                                                                  \\ \hline
+Digit Size Heuristic                                                                        & \begin{tabular}[c]{@{}c@{}}\{Heuristic 1, Heuristic 2,\\  Heuristic 3, Heuristic 4\}\end{tabular}                                  \\ \hline
+\end{tabular}
+\end{table}
 
+We started by training all four architectures on the data preprocessed using Heuristic 1 with the high learning rate of $.0001$. After observing that architectures 2 and 4 yielded much higher validation accuracy than architectures 1 and 3, we decided to omit the latter architectures from all further expiriments. We also decided to limit the range of the learning rate $\eta$ to $\eta \in \{.000001, .00005\}$, as we saw that convergence was occuring with high variance.
 
+We then took a random sample of 64 images from EMNIST, and extracted the "largest" digit from each image using each of the four size heuristics defined. We observed by visual inspection that when using Heuristics 3 and 4, we isolated the digits corresponding to the labels more frequently than when we used Heuristics 1 and 2. We decided to use data preprocessed with Heuristics 3 and 4 in all further experiemnts. 
 
-We then split the dataset into training and test splits, which we kept consistent in all further experiments. 
-We trained logistic regression and gradient boosted trees (XGB) models on the training set using the features described in Table 2, and used 3-fold cross validation to tune hyperparameters. These are our baseline features. 
-
-To test whether logistic regression and XGB are adequate models for this task, we also implemented an LSTM classifier, since many Kaggle competitors demonstrated that these models perform well on the Quora dataset. With the use of a development set, we compared several LSTM architectures, and found that the Manhattan Siamese LSTM (MaLSTM) architecture (Mueller et al; 2016) performed best. 
-
-
-\footnotetext[1]{Edit distance variations were computed using the Python \emph{fuzzywuzzy} package. More information on these metrics can be found \href{http://chairnerd.seatgeek.com/fuzzywuzzy-fuzzy-string-matching-in-python/}{\color{blue} here.}}
-
-\footnotetext[2]{Vector similarities were calculated using the Python \emph{SciPy} package. More information on these metrics can be found \href{https://docs.scipy.org/doc/scipy/reference/spatial.distance.html}{\color{blue} here.}}
-
-The MaLSTM is a Siamese neural network which forms a prediction by taking the Manhattan Similarity of of the vector representations of two inputs where the Manhattan similarity of two vectors $v_1$ and $v_2$ is defined:
-$$
-    ManhattanSim(v_1, v_2) = \exp(-||{v_1 - v_2||_1})  \eqno{(1)}
-$$
-We used fastText word embeddings of the words in each question as inputs to the MaLSTM. More details on our chosen architecture can be found in Appendix 1. 
-
-We found that the XGB model, when trained on the baseline features, had performance similar to that of the MaLSTM. Thus, we concluded that the XGB model has the capacity to achieve satisfactory results in the question duplicate detection task. 
-
-\subsection{Tf-Idf Features}
-
-
-Suppose we were allowed to compare only one word from each question in a pair to determine if the questions are duplicates, but had a choice of which words to compare. Which words should we choose? We would reasonably want to choose the most \emph{important} word from each question, or the words which are most particular to each question. 
-
-For example, in the fabricated question pair:
-\begin{enumerate}
-\item \emph{Who is the president of the United States?} 
-\item  \emph{What is the highest paying government position?}
-\end{enumerate}
-We would probably derive more insight into the similarity/dissimilarity of these questions by analyzing the words \emph{president} and \emph{government} than if we compared more commonly occurring words, like \emph{who} and \emph{highest}.
-
-We capture this intuition by creating a set of features that incorporate the Tf-Idf scores of each word. We used Scikit-Learn’s \code{TfidfTransformer} class  (Pedregosa et al.; 2011) to compute the Tf-Idf of a word $w$ in document $d$ using the formula:
-
-$$
-Tf\text{-}Idf(w, d) = Tf(w,d) * Idf(w) \eqno{(2)}
-$$
-Where $Tf(w,d)$ is the number of times word $w$ appers in document $d$ (term frequency), and $Idf(w)$ is defined:
-$$
-Idf(w) = \log{\frac{1 + n_d}{1 + df(w)}} + 1  \eqno{(3)}
-$$
-Where $n_d$ is the number of documents\footnote{\emph{Documents} and \emph{texts} are questions, in this context.} in the corpus, and $df(w)$ is the number of documents in the corpus that contain the word $w$. 
-
-The Tf-Idf weight of a word in a document will be high if: 1) the word appears many times in  that document, and 2) the word has low document frequency. It serves as a natural heuristic for modelling the relative importance of a word within a document. Tf-Idf weights are useful for many NLP tasks; in fact, variations of this scoring scheme are used as term weights in nearly all vector space information retrieval models (Jurafsky \& Martin; 2012). 
-
-Thus, we used Tf-Idf scores to craft four new features. The first two attempt to measure similarity of the “most important” word of each question in a pair. To do so, we find the word with the highest Tf-Idf weight in each question, then take the fastText word embedding for each of these words, and compute the distance between these vectors. We used Euclidean distance for one feature and Cosine distance for the second.
-
-$$
-{Feature}_1 = ||Embed(w_1^*) - Embed(w_2^*)||_2 \eqno(4)
-$$
-$$
-{Feature}_2 = \frac{\langle Embed(w_1^*), Embed(w_2^*) \rangle}{||Embed(w_1^*)||_2||Embed(w_2^*)||_2} \eqno(5)
-$$
-Where
-$$
-w_i^*= \argmax_{w_i \in d_i} \{ {Tf\text{-}Idf(w_i, d_i)}\} \quad \quad \quad  i \in \{1,2\}
-$$
-
-The third and fourth features measure the total Tf-Idf weight of the words two questions have in common, and the total weight of the words that they don’t: 
-
-$$
-{Feature}_3 = \sum_{w \in \{d_1 \cap d_2\}}{Tf\text{-}Idf(w, \{d_1 \cap d_2\})} \eqno(6)
-$$
-$$
-{Feature}_4 = \sum_{w \in \{d_1 \bigtriangleup  d_2\}}\sum_{i = 1}^2{Tf\text{-}Idf(w, d_i)\mathbbm{1}(w \in d_i) } \eqno(7)
-$$
-
-\subsection{Question Classifcation Features}
-
-IR-based question answering (QA) systems attempt to find short segments of text that answer a user’s question by querying a database or searching the web (Jurafsky \& Martin; 2017). These systems tend to perform better if they first constrain the answer candidates using a semantic categorization of the expected answer of an input question (Li \& Roth; 2002).  
-
-For example, when considering the question:
-\begin{center}
-\emph{Who is the president of the United States?}
-\end{center}
-A QA system should limit its search to words that correspond to humans, as opposed to considering all noun-phrases.
-
-Using the Text Retrieval Conference (TREC) question dataset (Voorhees; 2002), Roth and Li (2005) developed a hierarchical taxonomy for classifying the answer type of a question. This taxonomy consists of 6 coarse categories, and 50 fine sub-categories. They then annotated the 6000 questions in the TREC dataset using this taxonomy. The coarse answer categories are LOCATION, DESCRIPTION, ENTITY, NUMERIC, HUMAN, and ABBREVIATION, and some examples of fine categories are NUMERIC::Date and NUMERIC::Money. The task of predicting the answer type of a question is broadly termed \emph{Question Classification}. 
-
-We hypothesized that knowing the answer types of the questions in the Quora dataset would be useful for the question duplicate detection problem, since two questions are more likely to have duplicate intent if they share the same answer type. Our next feature set tests this hypothesis. 
-
-We trained 5 LSTM models on the TREC dataset to predict the coarse categories of each question. These models each have slightly different architectures, but they all consisted of three layers:
-\begin{enumerate}
-\item Embedding layer using pretrained fastText 300-dimensional embeddings
-\item LSTM layer of output dimension 50
-\item Output layer (of varying types) of output dimension 6.
-\end{enumerate}
-The details of the different architectures are in Table 3. Note that we trained these LSTMs on the entire TREC dataset without the use of the development set,  so we make no statement about the efficacy of these models for question classification.
+We then performed a gridsearch on the remaining hyperparameter combinations permitted by the constrained hyperparameter ranges [Table 2], totalling paramter combinations.
 
 
 \begin{table}[]
 \centering
-\caption{Architecture details of LSTM question classifiers }
+\caption{Constrained Hyperparameter Ranges}
 \label{my-label}
-\begin{tabular}{|p{10mm}|p{10mm}|p{10mm}|p{10mm}|p{14mm}|p{8mm}|}
+\begin{tabular}{|c|c|}
 \hline
-Model  & Output Layer & Dropout  & Recurrent Dropout & Embeddings Trainable? & Input Length \\ \hline
-LSTM 1 & Dense             & 20\%                   & -                 & NO                    & 10           \\
-LSTM 2 & Dense             & -                      & 20\%              & NO                    & 10           \\
-LSTM 3 & LSTM              & -                      & 20\%              & NO                    & 10           \\
-LSTM 4 & LSTM              & 20\%                   & 20\%              & YES                   & 10           \\
-LSTM 5 & LSTM              & -                      & 20\%              & NO                    & 6            \\ \hline
+\textbf{Hyperparameter}                                                                     & \textbf{Range Explored}                                                                                                            \\ \hline
+Model Architecture                                                                          & \{Architecture 2, Architecture 4\}                                                                                                 \\ \hline
+\begin{tabular}[c]{@{}c@{}}Data Augmentation - \\ (Batch size, Rotation Range)\end{tabular} & \begin{tabular}[c]{@{}c@{}}\{(1, {[}0, 0{]}), \\ (8, {[}-10, 10{]}), \\ (16, {[}-20, 20{]}), \\ (16, {[}-30, 30{]})\}\end{tabular} \\ \hline
+Learning Rate                                                                               & \{.000001, .00005\}                                                                                                               \\ \hline
+Digit Size Heuristic                                                                        & \{Heuristic 3, Heuristic 4\}                                                                                                       \\ \hline
 \end{tabular}
 \end{table}
 
-Using these models, we predicted the answer type of the questions in the the Quora dataset. Then, considering each LSTM model separately, we added these predictions to our baseline features, and measured the increase in our baseline XGB model using 3-fold cross validation. We also tried an ensembled approach, where the predicted class of each question is the class most predicted amongst the 5 LSTMs.
 
-We found that the ensembled predictions, as well as a binary feature which indicates if these predictions coincide, increased the performance of our baseline XGB model the most (in terms of reduction of log-loss). Thus, these are the features in the second feature set which we propose: 
-$$
-Feature_5 = \text{\{Question 1 Answer Type Prediction\}}
-$$
-$$
-Feature_6 = \text{\{Question 2 Answer Type Prediction\}}
-$$
-$$
-Feature_7 = \mathbbm{1}(\text{Answer Type Predictions Agree?})\quad
-$$
-\subsection{Sentence Semantic Similarity Scores}
+\subsection{CNN: Learning Optimization} 
 
-Our final feature set uses a framework for measuring the semantic similarity of short texts proposed by Mihalcea et al (2006). This framework models the similarity of two texts as a function of the similarities of their component words and the specificity of each word. Word-to-word similarities are measured with respect to a semantic knowledge base (e.g. WordNet.)
+We learned the weights of our networks using the \emph{RMSProp} algorithm, with the hyperparameter $\rho$ fixed at 0.9. While learning, we used an early stopping scheme, which caused training to stop if the validation accuracy has not improved for 8 consecutive epochs. 
 
-Given a word-to-word similarity metric, $Sim(w_1, w_2)$, and two texts\footnotemark[3] $T_1,$ $T_2$, the semantic similarity score of these two texts is computed by:
-\begin{enumerate}
-\item For each word $w \in T_1$, find the word $w^* \in T_2$ which maximizes $Sim(w, w^*)$.
-\item Apply this same process to determine the words in $T_1$ that have the highest similarity to the words in $T_2$. 
-\item Sum up the similarities (weighted by a measure of specificity, such as $Idf$ $(3)$), and normalize for the length of the sequences. 
-\end{enumerate}
-Note that words in one text are only compared to words in the other text \emph{of the same part of speech}, as many knowledge-based similarity measures cannot be applied across parts of speech (Mihalcea et al; 2006).
+At first, we tried learning using learning rate of $\eta = .0001$, but we observed through the use of learning curves that the convergence had very high variance. After reducing the learning rate to $.00005$, we achieved smoother learning [Figure 6].
 
-\begin{gather*} \tag{8}
-SimText(T_1,T_2) = \\ \frac{1}{2}\Big( \frac{\sum_{w \in T_1}{\maxU_{w^* \in T_2}Sim(w,w^*)Idf(w)}}{\sum_{w \in T_1}Idf(w)} \\ + \frac{\sum_{w \in T_2}{\maxU_{w^* \in T_1}Sim(w,w^*)Idf(w)}}{\sum_{w \in T_2}Idf(w)} \Big)
-\end{gather*}
-This framework guarantees the convenient properties of symmetry: $SimText(T_1, T_2)$ = $SimText(T_2, T_1)$, and that the range of the text similarity scores is the same as that of the word-to-word similarity measure  $Sim(w_1, w_2)$ used. 
+\begin{figure}
+      \centering
+      \includegraphics[scale = .6]{learning_curves.png}
+		\centering
+      %\includegraphics[scale=1.0]{figurefile}
+      \caption{Learning curves for training periods with $\eta = .0001$ and $\eta = .00005$, with early stopping. Note: training accuracy is lower than validation accuracy. This is because we used data augmentation, and the new randomly rotated images made the training data "harder" to learn than the validation data.}
+      \label{figurelabel}
+\end{figure}
 
-We used the python NLTK package for part-of-speech tagging (Bird et al; 2009). We implemented this framework using three similarity metrics available via NLTK’s WordNet interface - path similarity, Leacock-Chodorow similarity (Leacock \& Chodorow; 1998) and Wu-Palmer similarity (Wu \& Palmer; 1994). 
+\subsection{CNN: Aggregated Predictions} 
 
-We also implemented a simplified version of this framework by removing the dependency on $Idf$ scores in (8):
+We initialized the weights of our CNN's randomly. As such, every time we fit a model with a certain configuration, the final weights may be different, leading to different predictions. 
 
-\begin{gather*} \tag{9}
-SimText_{simplified}(T_1,T_2) = \\ \frac{1}{2}\Big( \frac{\sum_{w \in T_1}{\maxU_{w^* \in T_2}Sim(w,w^*)}}{|T_1|} \\ + \frac{\sum_{w \in T_2}{\maxU_{w^* \in T_1}Sim(w,w^*)}}{|T_2|} \Big)
-\end{gather*}
-We made this simplification to reduce the correlation between these similarity scores and the Tf-Idf features proposed in section 4.B - which also depend on Idf scores.
+To account for this randomness, we fit two models of each hyperparameter configuration, each with different random initialization. This allowed us to keep the better of the two trained models (based on validation-set accuracy) for each hyperparameter configuration. 
 
-We also extended this model by using a word-to-word similarity scores based neural word embeddings. Using pre-trained GloVe word embeddings (Pennington et al.; 2014) available through the SpaCy Python package, we used the cosine similarity (5) of the embeddings of two words as the similarity function $Sim(w_1,w_2)$ in (8) and (9). 
+Thus, for every combination of the hyperparameters (Data Augmentation Strategy, Size Heuristic), we had two models fit using Architecture 2, and two models fit using Architecture 4. This gave us the opportunity to aggregate predictions\footnote{To aggregate predictions of several models, we used the class which was predicted the most frequently amongst each individual model to be the aggregated class prediction.} across several trained models. 
 
-Using 3-fold cross validation, we added different subsets of these text-to-text similarity scores to our baseline feature set, and studied resulting boost in our baseline XGB model performance. Since the text-to-text scores are highly correlated when using path similarity, Leacock-Chodorow similarity and Wu-Palmer similarity as $Sim(w_1, w_2)$, we only tested one of these scoring functions at a time. 
+Two of the aggregations we experimented with increased validation accuracy by over 1\%, which we considered substatial. We refer to these aggregations as \emph{Aggregation 1} and \emph{Aggregation 2}. 
 
-We found that including two semantic similarity scores, calculated using the simplified scheme (9) and using Leacock-Chodorow distance and embedding Cosine distance as $Sim(w_1, w_2)$, resulted in the largest increase in performance in our baseline model. These two similarity scores define the final feature set we propose. 
-
-\begin{gather*} \tag{10}
-Feature_{8} = \{SimText_{Simplified}(T_1, T_2) \\ \text{where } Sim(w_1, w_2) \equiv \text{Leacock-Chodorow Similarity}\}
-\end{gather*}
-\begin{gather*} \tag{11}
-Feature_{9} = \{SimText_{Simplified}(T_1, T_2) \\ \text{where } Sim(w_1, w_2) \equiv \text{Cosine Distance (GloVe Embeddings)}\}
-\end{gather*}
-
+\textbf{Aggregation 1:}
+\begin{itemize}
+\item Predictions of four models aggregated.
+\item Two configurations - each repeated once with a different random initialization.
+\item Configuration 1: Architechture 2, Batch Bize = 16, Rotation Range [-.2, .2], $\eta$ = .00005, Size Heuristic 3
+\item Configuration 2: Architechture 4, Batch Bize = 16, Rotation Range [-.2, .2], $\eta$ = .00005, Size Heuristic 4
+\item Configuration 3: Architechture 2, Batch Bize = 16, Rotation Range [-.2, .2], $\eta$ = .00005, Size Heuristic 3
+\item Configuration 4: Architechture 4, Batch Bize = 16, Rotation Range [-.2, .2], $\eta$ = .00005, Size Heuristic 4
+\end{itemize}
+\textbf{Aggregation 2:}
+\begin{itemize}
+\item The same four configurations as in Aggregation 1, but each model configuration was trained and included twice.
+\end{itemize}
 
 \section{RESULTS}
+
+We achieved the highest 
+
 
 To measure the importance of each of these feature sets, we trained logistic regression and XGB models on all the features described above. We then removed different subsets of Tf-Idf, question classification and semantic scoring feature sets, and re-tuned each model's hyperparameters using 3-fold cross validation. We then used these models to predict test-set labels. The prediction accuracy for the resulting models are summarized in Table 4, as well as those of our baseline classifiers described in section 4.A. We limit our analysis to the XGB model, as this performed much better than logistic regression. 
 
@@ -441,6 +357,42 @@ We also think that an interesting extension to this work would be to extract fea
 Tamir engineered the features and classifiers described, worked on the paper, and conducted model experiments. Jack contributed to the classifiers and paper, and experimented with advanced techniques for feature extraction, such as named entity recognition and headword extraction. 
 
 \section{APPENDIX}
+\pagebreak
+\begin{figure}
+      \centering
+      \includegraphics[scale = .35]{model0.png}
+		\centering
+      %\includegraphics[scale=1.0]{figurefile}
+      \caption{Architecture 1: Three convolutional layers, 76,978 trainable parameters.}
+      \label{figurelabel}
+   \end{figure}
+   
+\begin{figure}
+      \centering
+      \includegraphics[scale = .3]{model1.png}
+		\centering
+      %\includegraphics[scale=1.0]{figurefile}
+      \caption{Architecture 2: Four convolutional layers, 79,298 trainable parameters.}
+      \label{figurelabel}
+   \end{figure}
+   
+\begin{figure}
+      \centering
+      \includegraphics[scale = .3]{model2.png}
+		\centering
+      %\includegraphics[scale=1.0]{figurefile}
+      \caption{Architecture 3: Four convolutional layers, 307,778 trainable parameters.}
+      \label{figurelabel}
+   \end{figure}
+   
+\begin{figure}
+      \centering
+      \includegraphics[scale =.2]{model3.png}
+		\centering
+      %\includegraphics[scale=1.0]{figurefile}
+      \caption{Architecture 4: Six convolutional layers, 94,594 trainable parameters.}
+      \label{figurelabel}
+ \end{figure}
 
 
 \pagebreak
