@@ -5,16 +5,13 @@
 \BOOKMARK [2][-]{subsection.2.3}{Data Augmentation}{section.2}% 5
 \BOOKMARK [1][-]{section.3}{ALGORITHMS}{}% 6
 \BOOKMARK [1][-]{section.4}{METHODOLOGY}{}% 7
-\BOOKMARK [2][-]{subsection.4.1}{Logistic Regression: Model Tuning}{section.4}% 8
-\BOOKMARK [2][-]{subsection.4.2}{Feedforward Neural Network: Model Tuning}{section.4}% 9
-\BOOKMARK [2][-]{subsection.4.3}{CNN: Hyperparameter Tuning}{section.4}% 10
+\BOOKMARK [2][-]{subsection.4.1}{Regularized Logistic Regression: Model Hyperparameters}{section.4}% 8
+\BOOKMARK [2][-]{subsection.4.2}{Feedforward Neural Network: Model Hyperparameters}{section.4}% 9
+\BOOKMARK [2][-]{subsection.4.3}{Convolutional Neural Network: Hyperparameter Tuning}{section.4}% 10
 \BOOKMARK [2][-]{subsection.4.4}{CNN: Learning Optimization}{section.4}% 11
 \BOOKMARK [2][-]{subsection.4.5}{CNN: Aggregated Predictions}{section.4}% 12
-\BOOKMARK [2][-]{subsection.4.6}{Tf-Idf Features}{section.4}% 13
-\BOOKMARK [2][-]{subsection.4.7}{Question Classifcation Features}{section.4}% 14
-\BOOKMARK [2][-]{subsection.4.8}{Sentence Semantic Similarity Scores}{section.4}% 15
-\BOOKMARK [1][-]{section.5}{RESULTS}{}% 16
-\BOOKMARK [1][-]{section.6}{DISCUSSION AND CONCLUSIONS}{}% 17
-\BOOKMARK [1][-]{section.7}{STATEMENT OF CONTRIBUTION}{}% 18
-\BOOKMARK [1][-]{section.8}{APPENDIX}{}% 19
-\BOOKMARK [1][-]{section*.9}{References}{}% 20
+\BOOKMARK [1][-]{section.5}{RESULTS}{}% 13
+\BOOKMARK [1][-]{section.6}{DISCUSSION AND CONCLUSIONS}{}% 14
+\BOOKMARK [1][-]{section.7}{STATEMENT OF CONTRIBUTION}{}% 15
+\BOOKMARK [1][-]{section.8}{APPENDIX}{}% 16
+\BOOKMARK [1][-]{section*.1}{References}{}% 17

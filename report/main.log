@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  20 MAR 2018 17:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  21 MAR 2018 15:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -946,9 +946,6 @@ LaTeX Warning: Label `figurelabel' multiply defined.
 LaTeX Warning: Label `my-label' multiply defined.
 
 
-LaTeX Warning: Label `my-label' multiply defined.
-
-
 LaTeX Warning: Label `fig:test1' multiply defined.
 
 
@@ -1070,21 +1067,21 @@ Overfull \hbox (28.25981pt too wide) in paragraph at lines 70--70
  \OT1/pcr/m/n/9 Philip.ryjanovsky@mail.mcgill.ca 
  []
 
-<images/mnist_sample.png, id=84, 362.35374pt x 82.80937pt>
+<images/mnist_sample.png, id=72, 362.35374pt x 82.80937pt>
 File: images/mnist_sample.png Graphic file (type png)
 
 <use images/mnist_sample.png>
 Package pdftex.def Info: images/mnist_sample.png used on input line 86.
 (pdftex.def)             Requested size: 252.94499pt x 57.80695pt.
 
-<images/emnist_sample.png, id=86, 215.30438pt x 75.28125pt>
+<images/emnist_sample.png, id=74, 215.30438pt x 75.28125pt>
 File: images/emnist_sample.png Graphic file (type png)
 
 <use images/emnist_sample.png>
 Package pdftex.def Info: images/emnist_sample.png used on input line 92.
 (pdftex.def)             Requested size: 252.94499pt x 88.44511pt.
 
-<images/blackout.png, id=87, 147.55125pt x 98.3675pt>
+<images/blackout.png, id=75, 147.55125pt x 98.3675pt>
 File: images/blackout.png Graphic file (type png)
 
 <use images/blackout.png>
@@ -1101,286 +1098,198 @@ s been already used, duplicate ignored
 l.137 \item \textbf
                    {Bounding Circle Area:} The area of the smallest circle w...
  <./images/blackout.png>]
-<images/size_definitions.png, id=104, 200.75pt x 200.75pt>
+<images/size_definitions.png, id=92, 200.75pt x 200.75pt>
 File: images/size_definitions.png Graphic file (type png)
 
 <use images/size_definitions.png>
 Package pdftex.def Info: images/size_definitions.png used on input line 145.
 (pdftex.def)             Requested size: 200.7495pt x 200.7495pt.
 
-Underfull \hbox (badness 1565) in paragraph at lines 165--166
-\OT1/ptm/b/n/10 FILLER. HERE WE TALK A BIT ABOUT IM-
+Overfull \hbox (7.40042pt too wide) detected at line 172
+\OML/cmm/m/it/10 Loss\OT1/cmr/m/n/10 ([]\OML/cmm/m/it/10 ; y[]\OT1/cmr/m/n/10 )
+ = \OMS/cmsy/m/n/10 ^^@\OT1/cmr/m/n/10 1 [] \OMS/cmsy/m/n/10 ^^C[]\OML/cmm/m/it
+/10 y[] []\OT1/cmr/m/n/10 ([]) + (1 \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 y[]\O
+T1/cmr/m/n/10 ) [](1 \OMS/cmsy/m/n/10 ^^@ []\OT1/cmr/m/n/10 ))
  []
 
-
-Underfull \hbox (badness 1565) in paragraph at lines 165--166
-\OT1/ptm/b/n/10 FILLER. HERE WE TALK A BIT ABOUT IM-
- []
-
-
-Underfull \hbox (badness 1565) in paragraph at lines 165--166
-\OT1/ptm/b/n/10 FILLER. HERE WE TALK A BIT ABOUT IM-
- []
-
-
-Underfull \hbox (badness 1565) in paragraph at lines 165--166
-\OT1/ptm/b/n/10 FILLER. HERE WE TALK A BIT ABOUT IM-
- []
-
-<images/conv4_arch.png, id=105, 593.21625pt x 199.74625pt>
+<images/conv4_arch.png, id=93, 593.21625pt x 199.74625pt>
 File: images/conv4_arch.png Graphic file (type png)
 
 <use images/conv4_arch.png>
-Package pdftex.def Info: images/conv4_arch.png used on input line 170.
+Package pdftex.def Info: images/conv4_arch.png used on input line 178.
 (pdftex.def)             Requested size: 249.14912pt x 83.89284pt.
 
-Overfull \hbox (3.43102pt too wide) in paragraph at lines 170--173
+Overfull \hbox (3.43102pt too wide) in paragraph at lines 178--181
  [][] 
  []
 
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [2pdfTeX warning (ext4): destination with the same identifier (name{figure.1})
- has been already used, duplicate ignored
+[2pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) 
+has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.176 A
+l.184 A
         summary of the four architechtures we experimented with is presented...
 pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
 s been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.176 A
+l.184 A
         summary of the four architechtures we experimented with is presented...
 pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) ha
 s been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.176 A
+l.184 A
         summary of the four architechtures we experimented with is presented...
  <./images/mnist_sample.png> <./images/emnist_sample.png> <./images/size_defini
 tions.png>]
-LaTeX Font Info:    Calculating math sizes for size <5.59998> on input line 184
+LaTeX Font Info:    Calculating math sizes for size <5.59998> on input line 192
 .
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <3.91995> not available
-(Font)              size <5> substituted on input line 184.
+(Font)              size <5> substituted on input line 192.
 
 
 LaTeX Font Warning: Font shape `OT1/cmr/m/n' in size <2.79999> not available
-(Font)              size <5> substituted on input line 184.
+(Font)              size <5> substituted on input line 192.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <3.91995> not available
-(Font)              size <5> substituted on input line 184.
+(Font)              size <5> substituted on input line 192.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <2.79999> not available
-(Font)              size <5> substituted on input line 184.
+(Font)              size <5> substituted on input line 192.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <3.91995> not available
-(Font)              size <5> substituted on input line 184.
+(Font)              size <5> substituted on input line 192.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <2.79999> not available
-(Font)              size <5> substituted on input line 184.
-
-
-Underfull \hbox (badness 1565) in paragraph at lines 188--189
-\OT1/ptm/b/n/10 FILLER. HERE WE TALK A BIT ABOUT IM-
- []
-
-
-Underfull \hbox (badness 1565) in paragraph at lines 188--189
-\OT1/ptm/b/n/10 FILLER. HERE WE TALK A BIT ABOUT IM-
- []
-
-
-Underfull \hbox (badness 1565) in paragraph at lines 188--189
-\OT1/ptm/b/n/10 FILLER. HERE WE TALK A BIT ABOUT IM-
- []
+(Font)              size <5> substituted on input line 192.
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 193.
+               Default added (so using `tbp') on input line 201.
 
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 200.
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 208.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <8> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 200.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 208.
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 214.
+               Default added (so using `tbp') on input line 222.
 
-<images/learning_curves.png, id=121, 313.17pt x 427.5975pt>
+<images/learning_curves.png, id=116, 313.17pt x 427.5975pt>
 File: images/learning_curves.png Graphic file (type png)
 
 <use images/learning_curves.png>
-Package pdftex.def Info: images/learning_curves.png used on input line 237.
+Package pdftex.def Info: images/learning_curves.png used on input line 245.
 (pdftex.def)             Requested size: 187.90344pt x 256.56047pt.
  [3pdfTeX warning (ext4): destination with the same identifier (name{figure.5})
  has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.249 
+l.259 
       pdfTeX warning (ext4): destination with the same identifier (name{table.1
 }) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.249 
+l.259 
       pdfTeX warning (ext4): destination with the same identifier (name{table.2
 }) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.249 
+l.259 
        <./images/conv4_arch.png>]
 
-Package xcolor Warning: Incompatible color definition on input line 279.
-
-[4pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) 
-has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.303 $$
-         <./images/learning_curves.png>]
-LaTeX Font Info:    Try loading font information for U+bbm on input line 311.
-
-(/usr/local/texlive/2015/texmf-dist/tex/latex/bbm-macros/ubbm.fd
-File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
-)
-Underfull \hbox (badness 3895) in paragraph at lines 330--331
-[]\OT1/ptm/m/n/10 Embedding layer us-ing pre-trained fast-Text 300-
- []
-
-
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 337.
+               Default added (so using `tbp') on input line 286.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 343--343
-[]|\OT1/ptm/m/n/8 Output
- []
-
-
-Overfull \hbox (3.09093pt too wide) in paragraph at lines 343--343
-[]|\OT1/ptm/m/n/8 Recurrent
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 343--343
-[]|\OT1/ptm/m/n/8 Input
- []
-
-
-Overfull \hbox (5.48886pt too wide) in paragraph at lines 341--350
- [][] 
- []
-
-LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 356.
-[5pdfTeX warning (ext4): destination with the same identifier (name{table.3}) h
-as been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.380 
-      ]
-Underfull \hbox (badness 2103) in paragraph at lines 394--395
-\OT1/ptm/m/n/10 cal-cu-lated us-ing the sim-pli-fied scheme (9) and us-ing
- []
-
-
-Overfull \hbox (10.46997pt too wide) in paragraph at lines 401--401
-[] 
- []
-
-
-LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 411.
-
-
-Overfull \hbox (12.2614pt too wide) in paragraph at lines 416--431
+Overfull \hbox (12.2614pt too wide) in paragraph at lines 291--306
  [] 
  []
 
-<images/full_bars.png, id=171, 1734.48pt x 674.52pt>
+<images/full_bars.png, id=131, 1734.48pt x 674.52pt>
 File: images/full_bars.png Graphic file (type png)
 
 <use images/full_bars.png>
-Package pdftex.def Info: images/full_bars.png used on input line 437.
+Package pdftex.def Info: images/full_bars.png used on input line 312.
 (pdftex.def)             Requested size: 252.94499pt x 98.36382pt.
 
-<images/no_tfidf_bars.png, id=172, 1734.48pt x 674.52pt>
+<images/no_tfidf_bars.png, id=132, 1734.48pt x 674.52pt>
 File: images/no_tfidf_bars.png Graphic file (type png)
 
 <use images/no_tfidf_bars.png>
-Package pdftex.def Info: images/no_tfidf_bars.png used on input line 443.
+Package pdftex.def Info: images/no_tfidf_bars.png used on input line 318.
 (pdftex.def)             Requested size: 252.94499pt x 98.36382pt.
- [6]
-Underfull \vbox (badness 1184) has occurred while \output is active []
+ [4pdfTeX warning (ext4): destination with the same identifier (name{figure.6})
+ has been already used, duplicate ignored
 
-
-<images/model0.png, id=180, 526.96875pt x 1805.74625pt>
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.338 
+       <./images/learning_curves.png>]
+<images/model0.png, id=142, 526.96875pt x 1805.74625pt>
 File: images/model0.png Graphic file (type png)
 
 <use images/model0.png>
-Package pdftex.def Info: images/model0.png used on input line 496.
+Package pdftex.def Info: images/model0.png used on input line 371.
 (pdftex.def)             Requested size: 184.44182pt x 632.02066pt.
 
 
-LaTeX Warning: Float too large for page by 318.18565pt on input line 501.
+LaTeX Warning: Float too large for page by 318.18565pt on input line 376.
 
-<images/model1.png, id=181, 526.96875pt x 2022.55624pt>
+<images/model1.png, id=143, 526.96875pt x 2022.55624pt>
 File: images/model1.png Graphic file (type png)
 
 <use images/model1.png>
-Package pdftex.def Info: images/model1.png used on input line 505.
+Package pdftex.def Info: images/model1.png used on input line 380.
 (pdftex.def)             Requested size: 158.09184pt x 606.77156pt.
 
 
-LaTeX Warning: Float too large for page by 292.93655pt on input line 510.
+LaTeX Warning: Float too large for page by 292.93655pt on input line 385.
 
-<images/model2.png, id=182, 526.96875pt x 1805.74625pt>
+<images/model2.png, id=144, 526.96875pt x 1805.74625pt>
 File: images/model2.png Graphic file (type png)
 
 <use images/model2.png>
-Package pdftex.def Info: images/model2.png used on input line 514.
+Package pdftex.def Info: images/model2.png used on input line 389.
 (pdftex.def)             Requested size: 158.09184pt x 541.72806pt.
 
 
-LaTeX Warning: Float too large for page by 227.89305pt on input line 519.
+LaTeX Warning: Float too large for page by 227.89305pt on input line 394.
 
-<images/model3.png, id=183, 526.96875pt x 2672.98625pt>
+<images/model3.png, id=145, 526.96875pt x 2672.98625pt>
 File: images/model3.png Graphic file (type png)
 
 <use images/model3.png>
-Package pdftex.def Info: images/model3.png used on input line 523.
+Package pdftex.def Info: images/model3.png used on input line 398.
 (pdftex.def)             Requested size: 105.39188pt x 534.58778pt.
 
 
-LaTeX Warning: Float too large for page by 219.11278pt on input line 528.
+LaTeX Warning: Float too large for page by 219.11278pt on input line 403.
 
 
-Underfull \hbox (badness 5832) in paragraph at lines 540--541
+Underfull \hbox (badness 5832) in paragraph at lines 415--416
 []\OT1/ptm/m/n/8 Theart, R. (2017, Novem-ber 29). Get-ting started with Py-
  []
 
 
-Underfull \hbox (badness 5217) in paragraph at lines 540--541
+Underfull \hbox (badness 5217) in paragraph at lines 415--416
 \OT1/ptm/m/n/8 Torch for Deep Learn-ing (Part 3: Neu-ral Net-work ba-sics).
  []
 
@@ -1395,59 +1304,65 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the US letter (8.5in X 11in) paper size.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 546.
-[7pdfTeX warning (ext4): destination with the same identifier (name{table.4}) h
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 421.
+[5pdfTeX warning (ext4): destination with the same identifier (name{table.3}) h
 as been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.546 \end{document}
+l.421 \end{document}
                     pdfTeX warning (ext4): destination with the same identifier
  (name{figure.7}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.546 \end{document}
+l.421 \end{document}
                     pdfTeX warning (ext4): destination with the same identifier
  (name{figure.8}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.546 \end{document}
+l.421 \end{document}
                      <./images/full_bars.png> <./images/no_tfidf_bars.png>]
-[8pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) 
+[6pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) 
 has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.546 \end{document}
+l.421 \end{document}
                     pdfTeX warning (ext4): destination with the same identifier
  (name{figure.10}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.546 \end{document}
-                     <./images/model0.png> <./images/model1.png>] [9pdfTeX warn
+l.421 \end{document}
+                     <./images/model0.png> <./images/model1.png>] [7pdfTeX warn
 ing (ext4): destination with the same identifier (name{figure.11}) has been alr
 eady used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.546 \end{document}
+l.421 \end{document}
                     pdfTeX warning (ext4): destination with the same identifier
  (name{figure.12}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.546 \end{document}
+l.421 \end{document}
                      <./images/model2.png> <./images/model3.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 546.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 421.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 546.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 546.
-Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 55908FAACCF363AD1AD9C1C5E3008876;1295.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 421.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 421.
 
+
+Package rerunfilecheck Warning: File `main.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `main.out':
+(rerunfilecheck)             Before: 4E9DC2FF91D219B2AF836D992A9BF122;1094
+(rerunfilecheck)             After:  22308B3667C1F65B8639E06AACFEAF97;1119.
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 3.25002pt have occurred.
@@ -1455,41 +1370,39 @@ LaTeX Font Warning: Size substitutions with differences
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 546.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 421.
  ) 
 Here is how much of TeX's memory you used:
- 14711 strings out of 493089
- 256532 string characters out of 6134842
- 330295 words of memory out of 5000000
- 17929 multiletter control sequences out of 15000+600000
- 55435 words of font info for 140 fonts, out of 8000000 for 9000
+ 14660 strings out of 493089
+ 255641 string characters out of 6134842
+ 328296 words of memory out of 5000000
+ 17907 multiletter control sequences out of 15000+600000
+ 53125 words of font info for 132 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  45i,18n,39p,10436b,414s stack positions out of 5000i,500n,10000p,200000b,80000s
- </Users/timibennatan/Library/texlive/2015/texmf-var/fonts/pk/ljfour/public/b
-bm/bbm10.600pk>{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.enc}
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
-/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
-usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></us
-r/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/
-local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/lo
-cal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/loca
-l/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/
-texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/tex
-live/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texliv
-e/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2
-015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2015
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2015/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2015/texmf-
-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2015/texmf-dist/fon
-ts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/u
-rw/times/utmr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/u
-tmri8a.pfb>
-Output written on main.pdf (9 pages, 1365117 bytes).
+{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
+exlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
+xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/tex
+live/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texli
+ve/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive
+/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2
+015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/201
+5/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2015/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2015/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2015/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2015/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2015/texmf-dist/fon
+ts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2015/texmf-dist
+/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/t
+ype1/urw/times/utmb8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/t
+imes/utmr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmri
+8a.pfb>
+Output written on main.pdf (7 pages, 1347659 bytes).
 PDF statistics:
- 300 PDF objects out of 1000 (max. 8388607)
- 242 compressed objects within 3 object streams
- 74 named destinations out of 1000 (max. 500000)
- 221 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 251 PDF objects out of 1000 (max. 8388607)
+ 198 compressed objects within 2 object streams
+ 55 named destinations out of 1000 (max. 500000)
+ 197 words of extra memory for PDF output out of 10000 (max. 10000000)
 

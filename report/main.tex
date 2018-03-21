@@ -158,13 +158,21 @@ To help make our model more robust to rotated digits, we augmented our training 
 
 \section{ALGORITHMS}
 
-We trained classifiers of three types: Regularized Logistic Regression, Feedforward Neural Network, and Convolutional Neural Networks (CNN). We trained each of these classifiers on the datasets processed using each of size heuristics described above, though we only experimented with data augmentation when training the CNN.
+We trained classifiers of three types: Regularized Logistic Regression, Feedforward Neural Network (FFNN), and Convolutional Neural Networks (CNN). We trained each of these classifiers on the datasets processed using each of size heuristics described above, though we only experimented with data augmentation when training the CNN.
 
 Regularized Logisitc regression served as our benchmark, as it is a simple and easy to implement algorithm. 
 
-\textbf{THIS IS FILLER. HERE WE TALK A BIT ABOUT IMPLEMENTATION AND WHAT WE TUNEDTHIS IS FILLER. HERE WE TALK A BIT ABOUT IMPLEMENTATION AND WHAT WE TUNEDTHIS IS FILLER. HERE WE TALK A BIT ABOUT IMPLEMENTATION AND WHAT WE TUNEDTHIS IS FILLER. HERE WE TALK A BIT ABOUT IMPLEMENTATION AND WHAT WE TUNEDTHIS IS FILLER. HERE WE TALK A BIT ABOUT IMPLEMENTATION AND WHAT WE TUNEDTHIS IS FILLER. HERE WE TALK A BIT ABOUT IMPLEMENTATION AND WHAT WE TUNEDTHIS IS FILLER. HERE WE TALK A BIT ABOUT IMPLEMENTATION AND WHAT WE TUNED.}
+For all experiments using FFNNs, we learned the parameters using stochastic gradient descent. We used the sigmoid activation function for all hidden units and the output units, and took a model's predictions for example $X_i$ to be the class which has the highest output activation:
+$$
+\hat{y_i} = \argmax_{\text{Output Units; } a_i}{\sigma(a_i)}
+$$
+Where $\sigma$ is the logistic sigmoid function. Thus, the loss function we used was the multi-class log-loss, which is defined for a $k$ class classification problem as:
+$$
+Loss(\hat{y}_i, y_i) = -1\sum_{k = 1}^K*\big( y_{i,k}\log(\hat{y}_{i,k}) + (1 - y_{i,k})\log(1 - \hat{y}_{i,k}))
+$$
+Where $y_{i} \in \mathbb{R}^k$ is a one-hot representation of the $i^{th}$ output, and $\hat{y}_{i,k}$ is the predicted probability that example $i$ belongs in class $k$. 
 
-Finally, we trained CNNs of four different archetecutres - each inspired by the LeNet archetecture by Lecun et. al (Legun et. al; 1995). These archetectures alternate between convolutional and max-pooling layers, and output predictions through two fully connected layers. One archetecture had three convolutional layers, two had four convolutional layers, and one had six convolutional layers. 
+Finally, we trained CNNs of four different archetecutres - all inspired by the LeNet archetecture by Lecun et. al (Legun et. al; 1995). These archetectures alternate between convolutional and max-pooling layers, and output predictions through two fully connected layers. One archetecture had three convolutional layers, two had four convolutional layers, and one had six convolutional layers. 
 \begin{figure}[H]
       \centering
       \includegraphics[scale = .42]{conv4_arch}
@@ -177,17 +185,17 @@ A summary of the four architechtures we experimented with is presented in the ap
 
 \section{METHODOLOGY}
 
-We started by splitting the labeled data into training and validation splits of sizes 40,000 and 10,000 examples, respectively. We kept these splits consistent in all experiments, so that we could guage the relative effectiveness of the models. For each model, we used this validation set to select a digit size heuristic, based on which heuristic(s) yield the highest validation accuracy when used to select the largest digit. We also used this validation set to tune model-specific parameters.
+We started by splitting the labeled data into training and validation splits of sizes 40,000 and 10,000 examples, respectively. We kept these splits consistent in all experiments, so that we could guage the relative effectiveness of the models. For each of the three algorithms we used, we chose which size heuristic(s) to use based on which heuristic(s) yielded the highest validation accuracy when used to select the largest digit in each image during preprocessing. We also used this validation set to tune model-specific parameters.
 
-\subsection{Logistic Regression: Model Tuning} 
+\subsection{Regularized Logistic Regression: Model Hyperparameters} 
 
 The two hyperparamters we tuned the for logistic regression were the inverse-regularization coefficient, $C$\footnote{In the notation seen in class, $C \propto \sfrac{1}{\lambda}$.}, and the regularization loss function (either \emph{l1} or \emph{l2}). Using the processed datasets generated from using each of the four size heuristics, we ran a grid-search over 24 hyperparameter combinations, and selected the combination that yielded the best validation accuracy.   
 
-\subsection{Feedforward Neural Network: Model Tuning} 
+\subsection{Feedforward Neural Network: Model Hyperparameters} 
 
-\textbf{THIS IS FILLER. HERE WE TALK A BIT ABOUT IMPLEMENTATION AND WHAT WE TUNEDTHIS IS FILLER. HERE WE TALK A BIT ABOUT IMPLEMENTATION AND WHAT WE TUNEDTHIS IS FILLER. HERE WE TALK A BIT ABOUT IMPLEMENTATION AND WHAT WE TUNEDTHIS IS FILLER. HERE WE TALK A BIT ABOUT IMPLEMENTATION AND WHAT WE TUNEDTHIS IS FILLER. HERE WE TALK A BIT ABOUT IMPLEMENTATION AND WHAT WE TUNEDTHIS IS FILLER.}
+The two hyperparameters we tuned when using FFNNs were the learning rate, $\alpha$, and the model architecture. We did not implement regularization.
 
-\subsection{CNN: Hyperparameter Tuning} 
+\subsection{Convolutional Neural Network: Hyperparameter Tuning} 
 
 We considered many hyperparameters when tuning our CNN models. The most important hyperparameters are summarized in Table 1:
 \begin{table}[]
