@@ -35,23 +35,25 @@
 \@writefile{toc}{\contentsline {section}{\numberline {IV}METHODOLOGY}{3}{section.4}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {IV-A}Regularized Logistic Regression: Model Hyperparameters}{3}{subsection.4.1}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {IV-B}Feedforward Neural Network: Model Hyperparameters}{3}{subsection.4.2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {IV-C}Convolutional Neural Network: Hyperparameter Tuning}{3}{subsection.4.3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {IV-C}Feedforward Neural Network: Learning Optimizations}{3}{subsection.4.3}}
 \@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces Hyperparameter Ranges Explored for CNN models}}{3}{table.1}}
 \newlabel{my-label}{{I}{3}{Hyperparameter Ranges Explored for CNN models}{table.1}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Constrained Hyperparameter Ranges}}{3}{table.2}}
-\newlabel{my-label}{{II}{3}{Constrained Hyperparameter Ranges}{table.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {IV-D}CNN: Learning Optimization}{3}{subsection.4.4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {IV-E}CNN: Aggregated Predictions}{3}{subsection.4.5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {IV-D}Convolutional Neural Network: Hyperparameter Tuning}{3}{subsection.4.4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {IV-E}CNN: Learning Optimization}{3}{subsection.4.5}}
+\@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Constrained Hyperparameter Ranges}}{4}{table.2}}
+\newlabel{my-label}{{II}{4}{Constrained Hyperparameter Ranges}{table.2}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Learning curves for training periods with $\eta = .0001$ and $\eta = .00005$, with early stopping. Note: training accuracy is lower than validation accuracy. This is because we used data augmentation, and the new randomly rotated images made the training data "harder" to learn than the validation data.}}{4}{figure.6}}
 \newlabel{figurelabel}{{6}{4}{Learning curves for training periods with $\eta = .0001$ and $\eta = .00005$, with early stopping. Note: training accuracy is lower than validation accuracy. This is because we used data augmentation, and the new randomly rotated images made the training data "harder" to learn than the validation data}{figure.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {IV-F}CNN: Aggregated Predictions}{4}{subsection.4.6}}
 \@writefile{toc}{\contentsline {section}{\numberline {V}RESULTS}{4}{section.5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {V-A}CNN: Regularized Logistic Regression}{4}{subsection.5.1}}
-\@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces Test set accuracy scores, with different feature sets omitted}}{5}{table.3}}
-\newlabel{my-label}{{III}{5}{Test set accuracy scores, with different feature sets omitted}{table.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Variable importance chart of model trained on all features.}}{5}{figure.7}}
-\newlabel{fig:test1}{{7}{5}{Variable importance chart of model trained on all features}{figure.7}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Variable importance chart of model that excludes the Tf-Idf features.}}{5}{figure.8}}
-\newlabel{fig:test2}{{8}{5}{Variable importance chart of model that excludes the Tf-Idf features}{figure.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {V-A}Regularized Logistic Regression}{4}{subsection.5.1}}
+\@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces Best Logistic Regression Models, Trained with l1/l2 Loss}}{4}{table.3}}
+\newlabel{my-}{{III}{4}{Best Logistic Regression Models, Trained with l1/l2 Loss}{table.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {V-B}Feedforward Neural Network}{5}{subsection.5.2}}
+\@writefile{lot}{\contentsline {table}{\numberline {IV}{\ignorespaces FFNN Architectures}}{5}{table.4}}
+\newlabel{my-label}{{IV}{5}{FFNN Architectures}{table.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {V}{\ignorespaces Validation Accuracies for FFNN Experiments}}{5}{table.5}}
+\newlabel{my-label}{{V}{5}{Validation Accuracies for FFNN Experiments}{table.5}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {VI}DISCUSSION AND CONCLUSIONS}{5}{section.6}}
 \@writefile{toc}{\contentsline {section}{\numberline {VII}STATEMENT OF CONTRIBUTION}{5}{section.7}}
 \@writefile{toc}{\contentsline {section}{\numberline {VIII}APPENDIX}{5}{section.8}}
@@ -60,11 +62,11 @@
 \bibcite{c3}{3}
 \bibcite{c5}{4}
 \@writefile{toc}{\contentsline {section}{References}{6}{section*.1}}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Architecture 1: Three convolutional layers, 76,978 trainable parameters.}}{6}{figure.9}}
-\newlabel{figurelabel}{{9}{6}{Architecture 1: Three convolutional layers, 76,978 trainable parameters}{figure.9}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Architecture 2: Four convolutional layers, 79,298 trainable parameters.}}{7}{figure.10}}
-\newlabel{figurelabel}{{10}{7}{Architecture 2: Four convolutional layers, 79,298 trainable parameters}{figure.10}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Architecture 3: Four convolutional layers, 307,778 trainable parameters.}}{7}{figure.11}}
-\newlabel{figurelabel}{{11}{7}{Architecture 3: Four convolutional layers, 307,778 trainable parameters}{figure.11}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Architecture 4: Six convolutional layers, 94,594 trainable parameters.}}{8}{figure.12}}
-\newlabel{figurelabel}{{12}{8}{Architecture 4: Six convolutional layers, 94,594 trainable parameters}{figure.12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Architecture 1: Three convolutional layers, 76,978 trainable parameters.}}{6}{figure.7}}
+\newlabel{figurelabel}{{7}{6}{Architecture 1: Three convolutional layers, 76,978 trainable parameters}{figure.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Architecture 2: Four convolutional layers, 79,298 trainable parameters.}}{7}{figure.8}}
+\newlabel{figurelabel}{{8}{7}{Architecture 2: Four convolutional layers, 79,298 trainable parameters}{figure.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Architecture 3: Four convolutional layers, 307,778 trainable parameters.}}{7}{figure.9}}
+\newlabel{figurelabel}{{9}{7}{Architecture 3: Four convolutional layers, 307,778 trainable parameters}{figure.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Architecture 4: Six convolutional layers, 94,594 trainable parameters.}}{8}{figure.10}}
+\newlabel{figurelabel}{{10}{8}{Architecture 4: Six convolutional layers, 94,594 trainable parameters}{figure.10}{}}

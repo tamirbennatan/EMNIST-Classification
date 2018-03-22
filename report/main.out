@@ -7,12 +7,14 @@
 \BOOKMARK [1][-]{section.4}{METHODOLOGY}{}% 7
 \BOOKMARK [2][-]{subsection.4.1}{Regularized Logistic Regression: Model Hyperparameters}{section.4}% 8
 \BOOKMARK [2][-]{subsection.4.2}{Feedforward Neural Network: Model Hyperparameters}{section.4}% 9
-\BOOKMARK [2][-]{subsection.4.3}{Convolutional Neural Network: Hyperparameter Tuning}{section.4}% 10
-\BOOKMARK [2][-]{subsection.4.4}{CNN: Learning Optimization}{section.4}% 11
-\BOOKMARK [2][-]{subsection.4.5}{CNN: Aggregated Predictions}{section.4}% 12
-\BOOKMARK [1][-]{section.5}{RESULTS}{}% 13
-\BOOKMARK [2][-]{subsection.5.1}{CNN: Regularized Logistic Regression}{section.5}% 14
-\BOOKMARK [1][-]{section.6}{DISCUSSION AND CONCLUSIONS}{}% 15
-\BOOKMARK [1][-]{section.7}{STATEMENT OF CONTRIBUTION}{}% 16
-\BOOKMARK [1][-]{section.8}{APPENDIX}{}% 17
-\BOOKMARK [1][-]{section*.1}{References}{}% 18
+\BOOKMARK [2][-]{subsection.4.3}{Feedforward Neural Network: Learning Optimizations}{section.4}% 10
+\BOOKMARK [2][-]{subsection.4.4}{Convolutional Neural Network: Hyperparameter Tuning}{section.4}% 11
+\BOOKMARK [2][-]{subsection.4.5}{CNN: Learning Optimization}{section.4}% 12
+\BOOKMARK [2][-]{subsection.4.6}{CNN: Aggregated Predictions}{section.4}% 13
+\BOOKMARK [1][-]{section.5}{RESULTS}{}% 14
+\BOOKMARK [2][-]{subsection.5.1}{Regularized Logistic Regression}{section.5}% 15
+\BOOKMARK [2][-]{subsection.5.2}{Feedforward Neural Network}{section.5}% 16
+\BOOKMARK [1][-]{section.6}{DISCUSSION AND CONCLUSIONS}{}% 17
+\BOOKMARK [1][-]{section.7}{STATEMENT OF CONTRIBUTION}{}% 18
+\BOOKMARK [1][-]{section.8}{APPENDIX}{}% 19
+\BOOKMARK [1][-]{section*.1}{References}{}% 20

@@ -197,6 +197,24 @@ The two hyperparameters we tuned when using FFNNs were the learning rate, $\alph
 
 We first trained with a learning rate of $\eta = .01$, but observed that the loss was not decreasing monotonically. We decreased $\eta$ to $.001$, and observed smoother convergence. Thus, we fixed the learning rate to $\eta = .001$ for all further experiments. 
 
+\subsection{Feedforward Neural Network: Learning Optimizations} 
+
+We began by trying to fit our models with smple unregularized stochastic gradient descent (SGD), but quickly found that our models were not converging. 
+
+To address this, we implemented \emph{momentum} to help calculate the ammount each weight should be updated on iteration $t$, denoted $\nu_t$, where $\nu_t$ is defined:
+$$
+\nu_t = \gamma\nu_{t-1} + \eta\nabla_{\theta}\text{Loss}(\theta)
+$$
+Where $\gamma$ is an additional hyperparameter introduced. 
+
+We also implemented \emph{power scaling} - a method of slowly reducing the learning rate $\eta$ with each epoch. At the end of each epoch, $\eta$ is updated as follows:
+$$
+\eta_{\text{new}} = \frac{\eta_{\text{old}}}{(\text{Epoch number})^{p}}
+$$
+For a scaling parameter $p$. This allows the weights to change drastically in the begining of training, and slowly dampens the change in weights as training progresses, so that local maxima are not overlooked. 
+
+We found that introducing these two learning optimizations helped the SGD algorithm minimize loss much faster. Thus, for all experiments with FFNN, we used both momentum and power scaling, with the hyperparameters fixed at $\gamma = .9, p = .5$. 
+
 \subsection{Convolutional Neural Network: Hyperparameter Tuning} 
 
 We considered many hyperparameters when tuning our CNN models. The most important hyperparameters are summarized in Table 1:
@@ -279,64 +297,61 @@ Two of the aggregations we experimented with increased validation accuracy by ov
 
 In this section we discuss the hyperparameters which had the largest impact on the performance of each model, and then we compare the perforance of each of our tuned models on the validation set. 
 
-\subsection{CNN: Regularized Logistic Regression} 
+\subsection{Regularized Logistic Regression} 
 
-After doing a thourough search through many $\big(\text{C}, \text{Regularization Loss Function}\big)$ combination, we found that the hyperparameter which had the largest impact on validation accuracy was the regularization loss function. Models trained using $l1$-loss enjoyed around 1-2\% better validation accuracy than models trained with $l2$ loss, for any fixed regularization parameter $C$. 
+After doing a thorough search through many $\big(\text{C}, \text{Regularization Loss Function}\big)$ combination, we found that the hyperparameter which had the largest impact on validation accuracy was the regularization loss function. The best model trained with $l1$-loss achieved a validation accuracy over 1\% higher than the best model trained with $l2$-loss [Table 3].
 
-Models trained with $l1$-loss regularization prefer sparse solutions. 
-
-
-
-To measure the importance of each of these feature sets, we trained logistic regression and XGB models on all the features described above. We then removed different subsets of Tf-Idf, question classification and semantic scoring feature sets, and re-tuned each model's hyperparameters using 3-fold cross validation. We then used these models to predict test-set labels. The prediction accuracy for the resulting models are summarized in Table 4, as well as those of our baseline classifiers described in section 4.A. We limit our analysis to the XGB model, as this performed much better than logistic regression. 
-
-% Please add the following required packages to your document preamble:
-% \usepackage[table,xcdraw]{xcolor}
-% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
-\begin{table*}[]
+\begin{table}[H]
 \centering
-\caption{Test set accuracy scores, with different feature sets omitted}
-\label{my-label}
-\begin{threeparttable}
-\begin{tabular}{|
->{\columncolor[HTML]{EFEFEF}}l |c|c|c|c|c|c|c|c|}
+\caption{Best Logistic Regression Models, Trained with l1/l2 Loss}
+\label{my-}
+\begin{tabular}{|c|c|c|}
 \hline
-\multicolumn{9}{|c|}{\cellcolor[HTML]{ECF4FF}XGB  AND LOGISTIC REGRESSION, WITH FEATURE SETS OMITTED}                                                                                                                                                                \\ \hline
-Feature sets ommited                                                            & $\emptyset$    & \{1\}                & \{2\}                & \{3\}                & \{1,2\}       & \{1,3\}                       & \{2,3\}                      & \{1,2,3\}     \\ \hline
-XGB Test Set Accuracy                                                           & \textbf{.7925} & .7624 (.0301)        & .7861 (.0064)        & .7825 (.01)          & .7585 (.034)  & .7504 (.0421)                 & .7794 (.0131)                & .7456 (.0469) \\ \hline
-\begin{tabular}[c]{@{}l@{}}Logistic Regression\\ Test Set Accuracy\end{tabular} & \textbf{.6962} & .6838 (.0124)        & .6951 (.0011)        & .6837 (.0125)        & .6836 (.0126) & .6743 (.0219)                 & .6827 (.0125)                & .6728 (.0234) \\ \hline
-\multicolumn{9}{|c|}{\cellcolor[HTML]{ECF4FF}BASELINE MODELS}                                                                                                                                                                                                        \\ \hline
-\multicolumn{1}{|c|}{\cellcolor[HTML]{EFEFEF}Manhattan LSTM}                    & .7588          & \multicolumn{3}{c|}{\cellcolor[HTML]{EFEFEF}Human (400 Responses)} & .8175         & \multicolumn{2}{c|}{\cellcolor[HTML]{EFEFEF}Random Guessing} \& .5015         \\ \hline
+\textbf{Loss Function} & \textbf{Regularization Parameter} & \textbf{Validation Accuracy} \\ \hline
+l1-loss                & 0.09                              & 0.731                        \\ \hline
+l1-loss                & .27                               & \textbf{0.735}               \\ \hline
+l2-loss                & .01                               & 0.723                        \\ \hline
+l2-loss                & .03                               & 0.721                        \\ \hline
 \end{tabular}
-\begin{tablenotes}
-\item Here, \{1\} are the Tf-Idf features from 4.B, \{2\} are the question classification features from 4.C, and \{3\} are the semantic similarity scores from 4.D.
-\item Cells contain each model's prediction accuracy, as well as the difference between prediction accuracy and the best model's prediction accuracy. 
-\end{tablenotes}
-\end{threeparttable}
-\end{table*}
+\end{table}
 
-\begin{figure*}[t]
+Models trained with $l1$-loss regularization find sparse solutions - meaning that many input features do not contribute to the decision boundary. This has an interesting interpretation for the EMNIST classification problem; it means that the Logistic Regression model learned that some pixel values (features) do not help to predict the largest digit, and should be ignored.
+
+For example, since we padded all images with a black border during preprocessing, these pixel values do not help to distinguish between the digits. Its reasonable to assume that the Logistic Regression model, trained with $l1$-loss learned to ignore the values of those pixels.
+
+\subsection{Feedforward Neural Network} 
+
+We experimented with three model architectures when fitting our FFNN:
+
+\begin{table}[H]
 \centering
-\begin{minipage}{.5\textwidth}
-  \centering
-  \includegraphics[width=1\linewidth]{full_bars}
-  \captionof{figure}{Variable importance chart of model trained on all features.}
-  \label{fig:test1}
-\end{minipage}%
-\begin{minipage}{.5\textwidth}
-  \centering
-  \includegraphics[width=1\linewidth]{no_tfidf_bars}
-  \captionof{figure}{Variable importance chart of model that excludes the Tf-Idf features.}
-  \label{fig:test2}
-\end{minipage}
-\end{figure*}
+\caption{FFNN Architectures}
+\label{my-label}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Architecture\\ Number\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Number of\\ Hidden Layers\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Hidden Layer\\ Dimensions\end{tabular}} \\ \hline
+Architecture 1                                                         & 1                                                                          & (128)                                                                      \\ \hline
+Architecture 2                                                         & 2                                                                          & (64, 20)                                                                   \\ \hline
+Architecture 3                                                         & 2                                                                          & (128, 64)                                                                  \\ \hline
+\end{tabular}
+\end{table}
 
-Including all three feature sets results in the best performance, with a test set accuracy of 79.25\% - 4.69\% better than the baseline XGB model. Amongst the three feature sets we propose, removing the Tf-Idf features (4.B) results in the largest decrease in prediction accuracy relative to the full model - with a 3.01\% decrease. Removing the question classification features from 4.C results in the smallest decrease in prediction accuracy, indicating that these features are the least meaningful of those we propose. 
+We trained all models for 20 epochs with SGD, using both momentum and power scaling. 
 
-When using ensembled tree models such as XGB, one can use the number of times a variable is split upon as a measure of that variable's importance. This measure is called the \emph{F-Score}. By plotting the F-Scores of each feature, we can gain insight into the importance of each variable used in a model, relative to the other variables present (Gareth et al; 2017).
+After some experimentations, we found that the configuration $\eta = .01, \gamma = .9, p = .9$ led to a reasonable learning rate. Using these hyperparameter configurations, we fit each of the architectures described in table 3, and got the following results:
 
-A variable importance chart of the full model corroborates the result that the Tf-Idf features are the most meaningful, as these features are amongst those with the highest F-Scores [figure 1]. Semantic similarity scores also have high F-Scores. Interestingly, when the Tf-Idf features are removed, the semantic similarity scores become much more important relative to the remaining features, evident in Figure 2. This suggests that the Tf-Idf features and semantic similarity scores explain some of the same variance, and once the Tf-Idf features are removed the model must rely more heavily on the semantic similarity scores. Indeed, the features in these to feature sets are strongly correlated; the correlation between Feature 9 and Features 6 and 7 are 68.28\% and -73.91\%, respectively. 
-
-The variable importance charts also suggest that the question classification features are not meaningful. In fact, these three features are amongst four features with the lowest F-Score.
+\begin{table}[H]
+\centering
+\caption{Validation Accuracies for FFNN Experiments}
+\label{my-label}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{\begin{tabular}[c]{@{}c@{}}Architecture\\ Number\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Validation \\ Accuracy\end{tabular}} \\ \hline
+Architecture 1                                                         & .55                                                                     \\ \hline
+Architecture 2                                                         & .64                                                                     \\ \hline
+Architecture 3                                                         & .64                                                                     \\ \hline
+\end{tabular}
+\end{table}
 
 
 \section{DISCUSSION AND CONCLUSIONS}
