@@ -11,7 +11,8 @@
 \BOOKMARK [2][-]{subsection.4.4}{CNN: Learning Optimization}{section.4}% 11
 \BOOKMARK [2][-]{subsection.4.5}{CNN: Aggregated Predictions}{section.4}% 12
 \BOOKMARK [1][-]{section.5}{RESULTS}{}% 13
-\BOOKMARK [1][-]{section.6}{DISCUSSION AND CONCLUSIONS}{}% 14
-\BOOKMARK [1][-]{section.7}{STATEMENT OF CONTRIBUTION}{}% 15
-\BOOKMARK [1][-]{section.8}{APPENDIX}{}% 16
-\BOOKMARK [1][-]{section*.1}{References}{}% 17
+\BOOKMARK [2][-]{subsection.5.1}{CNN: Regularized Logistic Regression}{section.5}% 14
+\BOOKMARK [1][-]{section.6}{DISCUSSION AND CONCLUSIONS}{}% 15
+\BOOKMARK [1][-]{section.7}{STATEMENT OF CONTRIBUTION}{}% 16
+\BOOKMARK [1][-]{section.8}{APPENDIX}{}% 17
+\BOOKMARK [1][-]{section*.1}{References}{}% 18

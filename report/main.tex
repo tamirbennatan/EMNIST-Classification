@@ -195,6 +195,8 @@ The two hyperparamters we tuned the for logistic regression were the inverse-reg
 
 The two hyperparameters we tuned when using FFNNs were the learning rate, $\alpha$, and the model architecture. We did not implement regularization.
 
+We first trained with a learning rate of $\eta = .01$, but observed that the loss was not decreasing monotonically. We decreased $\eta$ to $.001$, and observed smoother convergence. Thus, we fixed the learning rate to $\eta = .001$ for all further experiments. 
+
 \subsection{Convolutional Neural Network: Hyperparameter Tuning} 
 
 We considered many hyperparameters when tuning our CNN models. The most important hyperparameters are summarized in Table 1:
@@ -275,7 +277,14 @@ Two of the aggregations we experimented with increased validation accuracy by ov
 
 \section{RESULTS}
 
-We achieved the highest 
+In this section we discuss the hyperparameters which had the largest impact on the performance of each model, and then we compare the perforance of each of our tuned models on the validation set. 
+
+\subsection{CNN: Regularized Logistic Regression} 
+
+After doing a thourough search through many $\big(\text{C}, \text{Regularization Loss Function}\big)$ combination, we found that the hyperparameter which had the largest impact on validation accuracy was the regularization loss function. Models trained using $l1$-loss enjoyed around 1-2\% better validation accuracy than models trained with $l2$ loss, for any fixed regularization parameter $C$. 
+
+Models trained with $l1$-loss regularization prefer sparse solutions. 
+
 
 
 To measure the importance of each of these feature sets, we trained logistic regression and XGB models on all the features described above. We then removed different subsets of Tf-Idf, question classification and semantic scoring feature sets, and re-tuned each model's hyperparameters using 3-fold cross validation. We then used these models to predict test-set labels. The prediction accuracy for the resulting models are summarized in Table 4, as well as those of our baseline classifiers described in section 4.A. We limit our analysis to the XGB model, as this performed much better than logistic regression. 
