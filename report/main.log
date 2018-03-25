@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  22 MAR 2018 17:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  22 MAR 2018 18:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1072,21 +1072,21 @@ Overfull \hbox (28.25981pt too wide) in paragraph at lines 72--72
  \OT1/pcr/m/n/9 Philip.ryjanovsky@mail.mcgill.ca 
  []
 
-<images/mnist_sample.png, id=92, 362.35374pt x 82.80937pt>
+<images/mnist_sample.png, id=88, 362.35374pt x 82.80937pt>
 File: images/mnist_sample.png Graphic file (type png)
 
 <use images/mnist_sample.png>
 Package pdftex.def Info: images/mnist_sample.png used on input line 88.
 (pdftex.def)             Requested size: 252.94499pt x 57.80695pt.
 
-<images/emnist_sample.png, id=94, 215.30438pt x 75.28125pt>
+<images/emnist_sample.png, id=90, 215.30438pt x 75.28125pt>
 File: images/emnist_sample.png Graphic file (type png)
 
 <use images/emnist_sample.png>
 Package pdftex.def Info: images/emnist_sample.png used on input line 94.
 (pdftex.def)             Requested size: 252.94499pt x 88.44511pt.
 
-<images/blackout.png, id=95, 147.55125pt x 98.3675pt>
+<images/blackout.png, id=91, 147.55125pt x 98.3675pt>
 File: images/blackout.png Graphic file (type png)
 
 <use images/blackout.png>
@@ -1103,14 +1103,14 @@ s been already used, duplicate ignored
 l.138 \item
             \textbf{Bounding Rectangle Area:} The area of the smallest uprig...
  <./images/blackout.png>]
-<images/size_definitions.png, id=112, 200.75pt x 200.75pt>
+<images/size_definitions.png, id=108, 200.75pt x 200.75pt>
 File: images/size_definitions.png Graphic file (type png)
 
 <use images/size_definitions.png>
 Package pdftex.def Info: images/size_definitions.png used on input line 147.
 (pdftex.def)             Requested size: 200.7495pt x 200.7495pt.
 
-<images/rotated_nines.png, id=114, 254.9525pt x 110.4125pt>
+<images/rotated_nines.png, id=110, 254.9525pt x 110.4125pt>
 File: images/rotated_nines.png Graphic file (type png)
 
 <use images/rotated_nines.png>
@@ -1154,7 +1154,7 @@ Overfull \hbox (7.40042pt too wide) detected at line 185
 T1/cmr/m/n/10 ) [](1 \OMS/cmsy/m/n/10 ^^@ []\OT1/cmr/m/n/10 ))
  []
 
-<images/conv4_arch.png, id=132, 593.21625pt x 199.74625pt>
+<images/conv4_arch.png, id=128, 593.21625pt x 199.74625pt>
 File: images/conv4_arch.png Graphic file (type png)
 
 <use images/conv4_arch.png>
@@ -1215,7 +1215,7 @@ l.248
 LaTeX Warning: No positions in optional float specifier.
                Default added (so using `tbp') on input line 252.
 
-<images/learning_curves.png, id=154, 313.17pt x 427.5975pt>
+<images/learning_curves.png, id=150, 313.17pt x 427.5975pt>
 File: images/learning_curves.png Graphic file (type png)
 
 <use images/learning_curves.png>
@@ -1293,7 +1293,7 @@ Underfull \hbox (badness 5217) in paragraph at lines 478--479
 \OT1/ptm/m/n/8 Torch for Deep Learn-ing (Part 3: Neu-ral Net-work ba-sics).
  []
 
-<images/model0.png, id=180, 526.96875pt x 1805.74625pt>
+<images/model0.png, id=176, 526.96875pt x 1805.74625pt>
 File: images/model0.png Graphic file (type png)
 
 <use images/model0.png>
@@ -1306,7 +1306,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Overfull \vbox (343.0606pt too high) has occurred while \output is active []
 
 
-<images/model1.png, id=193, 526.96875pt x 2022.55624pt>
+<images/model1.png, id=189, 526.96875pt x 2022.55624pt>
 File: images/model1.png Graphic file (type png)
 
 <use images/model1.png>
@@ -1329,7 +1329,7 @@ l.502
                                                   \fi \fi 
 l.502 
        <./images/model0.png> <./images/model1.png>]
-<images/model2.png, id=202, 526.96875pt x 1805.74625pt>
+<images/model2.png, id=198, 526.96875pt x 1805.74625pt>
 File: images/model2.png Graphic file (type png)
 
 <use images/model2.png>
@@ -1339,7 +1339,7 @@ Package pdftex.def Info: images/model2.png used on input line 505.
 Overfull \vbox (227.89305pt too high) has occurred while \output is active []
 
 
-<images/model3.png, id=203, 526.96875pt x 2672.98625pt>
+<images/model3.png, id=199, 526.96875pt x 2672.98625pt>
 File: images/model3.png Graphic file (type png)
 
 <use images/model3.png>
@@ -1378,15 +1378,9 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 524.
 (./main.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 524.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 524.
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: B72C591DC5151311CD2B92C7EDB9323B;1455.
 
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: 2E1C3E85BFA51AB50C45478F04FB016D;1516
-(rerunfilecheck)             After:  B72C591DC5151311CD2B92C7EDB9323B;1455.
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 3.25002pt have occurred.
@@ -1397,39 +1391,36 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 524.
  ) 
 Here is how much of TeX's memory you used:
- 14659 strings out of 493089
- 255435 string characters out of 6134842
- 331372 words of memory out of 5000000
- 17890 multiletter control sequences out of 15000+600000
+ 14657 strings out of 493089
+ 255415 string characters out of 6134842
+ 331371 words of memory out of 5000000
+ 17889 multiletter control sequences out of 15000+600000
  54067 words of font info for 128 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  45i,17n,39p,10436b,369s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{section.9} has been referenced but does not exist
-, replaced by a fixed one
-
-{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/tex
-live/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texl
-ive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texli
-ve/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive
-/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2
-015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/201
-5/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2015/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2015/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2015/texmf
--dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2015/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2015/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2015/texmf-dist/fonts
-/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2015/texmf-dist/f
-onts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/typ
-e1/urw/times/utmb8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/tim
-es/utmbi8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmr8a
-.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (9 pages, 1284361 bytes).
+{/usr/local/texlive/2015/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
+exlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
+xlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/tex
+live/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texli
+ve/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive
+/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2
+015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/201
+5/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2015/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2015/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2015/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2015/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2015/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2015/texmf-dist/fon
+ts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2015/texmf-dist
+/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/t
+ype1/urw/times/utmb8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/t
+imes/utmbi8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmr
+8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on main.pdf (9 pages, 1284324 bytes).
 PDF statistics:
- 291 PDF objects out of 1000 (max. 8388607)
- 236 compressed objects within 3 object streams
- 68 named destinations out of 1000 (max. 500000)
- 232 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 287 PDF objects out of 1000 (max. 8388607)
+ 232 compressed objects within 3 object streams
+ 67 named destinations out of 1000 (max. 500000)
+ 224 words of extra memory for PDF output out of 10000 (max. 10000000)
 
